@@ -1,163 +1,209 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Mis Renders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f14;
-      color: white;
-      text-align: center;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f0f14;
+            color: white;
+            text-align: center;
+        }
 
-    header {
-      padding: 20px;
-    }
+        header {
+            padding: 30px;
+        }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-      padding: 20px;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
 
-    .gallery img {
-      width: 100%;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+        header p {
+            color: #aaa;
+        }
 
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
+        .socials a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 18px;
+            background: #1f1f2e;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
 
-    #vista-render {
-      display: none;
-      padding: 20px;
-    }
+        .socials a:hover {
+            background: #6c63ff;
+        }
 
-    .btn-atras {
-      background: #22c55e;
-      border: none;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
 
-    .detalle {
-      display: flex;
-      gap: 25px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+        .gallery img {
+            width: 100%;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
 
-    .detalle img {
-      max-width: 420px;
-      border-radius: 15px;
-    }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
 
-    .info {
-      max-width: 320px;
-      text-align: left;
-    }
+        footer {
+            padding: 20px;
+            color: #666;
+        }
 
-    .miniaturas {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      margin-top: 25px;
-    }
+        /* ===== NUEVO: VISTA DETALLE / ZOOM ===== */
+        .detalle-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
 
-    .miniaturas img {
-      width: 90px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  </style>
+        .detalle-box {
+            background: #1a1a25;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 900px;
+            width: 95%;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .detalle-box img {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .detalle-info {
+            max-width: 350px;
+            text-align: left;
+        }
+
+        .btn-cerrar {
+            background: #22c55e;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🎨 Portfolio</h1>
+    <h1>✨ Mis Renders ✨</h1>
+    <p>Blender · Minecraft · Arte 3D</p>
+
+    <div class="socials">
+        <a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
+        <a href="https://www.tiktok.com/@soy_joseph972" target="_blank">TikTok</a>
+        <a href="https://www.youtube.com/@Soy_joseph972" target="_blank">YouTube</a>
+    </div>
 </header>
 
-<!-- GALERÍA -->
-<section id="portfolio" class="gallery">
-  <img src="render1.png" onclick="abrirRender(0)">
-  <img src="render2.png" onclick="abrirRender(1)">
-  <img src="render3.png" onclick="abrirRender(2)">
-  <img src="render4.png" onclick="abrirRender(3)">
+<h2 class="section-title">🏆 Invitaciones</h2>
+<section class="gallery">
+    <img src="participante 1.png" data-titulo="Invitación" data-desc="Render hecho en Blender con iluminación suave.">
+    <img src="participante 4.png" data-titulo="Invitación" data-desc="Diseño limpio y estilo profesional.">
+    <img src="participante 7.png" data-titulo="Invitación" data-desc="Render 3D para evento especial.">
+    <img src="participante 8.png" data-titulo="Invitación" data-desc="Trabajo detallado con enfoque visual.">
 </section>
 
-<!-- VISTA DETALLE -->
-<section id="vista-render">
-
-  <button class="btn-atras" onclick="volver()">⬅ Atrás</button>
-
-  <div class="detalle">
-    <img id="imagenGrande" src="">
-    <div class="info">
-      <h2 id="titulo"></h2>
-      <p id="descripcion"></p>
-    </div>
-  </div>
-
-  <div class="miniaturas">
-    <img src="render1.png" onclick="abrirRender(0)">
-    <img src="render2.png" onclick="abrirRender(1)">
-    <img src="render3.png" onclick="abrirRender(2)">
-    <img src="render4.png" onclick="abrirRender(3)">
-  </div>
-
+<h2 class="section-title">🏆 Invitaciones</h2>
+<section class="gallery">
+    <img src="Jugador 2..png" data-titulo="Jugador" data-desc="Render de personaje estilo Minecraft.">
+    <img src="Jugador 4..png" data-titulo="Jugador" data-desc="Iluminación y sombras suaves.">
+    <img src="Jugador 11..png" data-titulo="Jugador" data-desc="Render dinámico con fondo oscuro.">
+    <img src="Jugador 14..png" data-titulo="Jugador" data-desc="Estilo cinemático.">
 </section>
 
+<h2 class="section-title">🎬 Miniaturas</h2>
+<section class="gallery">
+    <img src="jospeh detective miniatura.png" data-titulo="Miniatura" data-desc="Miniatura para YouTube.">
+    <img src="peak mini final.png" data-titulo="Miniatura" data-desc="Diseño llamativo y contrastado.">
+    <img src="peak wsa final.png" data-titulo="Miniatura" data-desc="Estilo moderno.">
+    <img src="fuega cubecraft detalles.png" data-titulo="Miniatura" data-desc="Detalles resaltados.">
+</section>
+
+<h2 class="section-title">🔥 Especiales</h2>
+<section class="gallery">
+    <img src="tuenyyy f.png" data-titulo="Especial" data-desc="Render especial con efectos.">
+    <img src="tuenyyy.png" data-titulo="Especial" data-desc="Versión alternativa del render.">
+    <img src="wazvii encadenado.png" data-titulo="Especial" data-desc="Ambiente oscuro y dramático.">
+</section>
+
+<footer>
+    © 2026 · Hecho por mí 😎
+</footer>
+
+<!-- ===== NUEVO: JS DEL ZOOM Y DESCRIPCIÓN ===== -->
 <script>
-const renders = [
-  {
-    img: "render1.png",
-    titulo: "Render 1",
-    desc: "Hecho en Blender · Estilo cinemático"
-  },
-  {
-    img: "render2.png",
-    titulo: "Render 2",
-    desc: "Minecraft · Iluminación suave"
-  },
-  {
-    img: "render3.png",
-    titulo: "Render 3",
-    desc: "Ambiente oscuro · Render dramático"
-  },
-  {
-    img: "render4.png",
-    titulo: "Render 4",
-    desc: "Arte 3D · Postprocesado"
-  }
-];
+document.querySelectorAll(".gallery img").forEach(img => {
+    img.addEventListener("click", () => {
 
-function abrirRender(i) {
-  document.getElementById("portfolio").style.display = "none";
-  document.getElementById("vista-render").style.display = "block";
+        const overlay = document.createElement("div");
+        overlay.className = "detalle-overlay";
 
-  imagenGrande.src = renders[i].img;
-  titulo.innerText = renders[i].titulo;
-  descripcion.innerText = renders[i].desc;
-}
+        const box = document.createElement("div");
+        box.className = "detalle-box";
 
-function volver() {
-  document.getElementById("vista-render").style.display = "none";
-  document.getElementById("portfolio").style.display = "grid";
-}
+        const imagen = document.createElement("img");
+        imagen.src = img.src;
+
+        const info = document.createElement("div");
+        info.className = "detalle-info";
+
+        const titulo = document.createElement("h2");
+        titulo.innerText = img.dataset.titulo || "Render";
+
+        const desc = document.createElement("p");
+        desc.innerText = img.dataset.desc || "Sin descripción.";
+
+        const cerrar = document.createElement("button");
+        cerrar.className = "btn-cerrar";
+        cerrar.innerText = "⬅ Atrás";
+
+        cerrar.onclick = () => overlay.remove();
+
+        info.appendChild(titulo);
+        info.appendChild(desc);
+        info.appendChild(cerrar);
+
+        box.appendChild(imagen);
+        box.appendChild(info);
+        overlay.appendChild(box);
+
+        document.body.appendChild(overlay);
+    });
+});
 </script>
 
 </body>
 </html>
+
+
