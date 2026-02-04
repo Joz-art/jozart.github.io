@@ -1,215 +1,177 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Mis Renders</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Mis Renders</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f0f14;
-            color: white;
-            text-align: center;
-        }
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0f0f14;
+    color:white;
+    text-align:center;
+}
+header{padding:30px}
+header h1{margin:0;font-size:2.5em}
+header p{color:#aaa}
 
-        header {
-            padding: 30px;
-        }
+.socials a{
+    display:inline-block;
+    margin:10px;
+    padding:10px 18px;
+    background:#1f1f2e;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+}
+.socials a:hover{background:#6c63ff}
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    padding:20px;
+}
+.gallery img{
+    width:100%;
+    border-radius:15px;
+    cursor:pointer;
+}
 
-        header p {
-            color: #aaa;
-        }
+footer{padding:20px;color:#666}
 
-        .socials a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 18px;
-            background: #1f1f2e;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: 0.2s;
-        }
-
-        .socials a:hover {
-            background: #6c63ff;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            padding: 20px;
-        }
-
-        .gallery img {
-            width: 100%;
-            border-radius: 15px;
-            cursor: pointer;
-        }
-
-        footer {
-            padding: 20px;
-            color: #666;
-        }
-
-        /* ===== ZOOM TIPO LUPA ===== */
-        .zoom-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-        }
-
-        .zoom-lens {
-            position: absolute;
-            border: 2px solid #6c63ff;
-            width: 120px;
-            height: 120px;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            display: none;
-            border-radius: 10px;
-        }
-    </style>
+/* ===== MODAL ===== */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+.modal-content{
+    background:#151520;
+    border-radius:20px;
+    max-width:900px;
+    width:95%;
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+.modal-left{
+    position:relative;
+    flex:1;
+}
+.modal-left img{
+    width:100%;
+    border-radius:15px;
+}
+.zoom-lens{
+    position:absolute;
+    width:120px;
+    height:120px;
+    border:2px solid #6c63ff;
+    display:none;
+    pointer-events:none;
+    background-repeat:no-repeat;
+}
+.modal-right{
+    flex:1;
+    text-align:left;
+}
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 20px;
+    background:#22c55e;
+    color:black;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>✨ Mis Renders ✨</h1>
-    <p>Blender · Minecraft · Arte 3D</p>
-
-    <div class="socials">
-        <a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
-        <a href="https://www.tiktok.com/@soy_joseph972" target="_blank">TikTok</a>
-        <a href="https://www.youtube.com/@Soy_joseph972" target="_blank">YouTube</a>
-    </div>
+<h1>✨ Mis Renders ✨</h1>
+<p>Blender · Minecraft · Arte 3D</p>
+<div class="socials">
+<a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
+<a href="https://www.tiktok.com/@soy_joseph972" target="_blank">TikTok</a>
+<a href="https://www.youtube.com/@Soy_joseph972" target="_blank">YouTube</a>
+</div>
 </header>
 
-<h2 class="section-title">🏆 Invitaciones</h2>
 <section class="gallery">
-    <div class="zoom-container">
-        <img src="participante 1.png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="participante 4.png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="participante 7.png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="participante 8.png">
-        <div class="zoom-lens"></div>
-    </div>
+<img src="participante 1.png" data-desc="Render invitación · Blender">
+<img src="participante 4.png" data-desc="Render invitación · Minecraft">
+<img src="participante 7.png" data-desc="Iluminación cinemática">
+<img src="participante 8.png" data-desc="Edición profesional">
 </section>
 
-<h2 class="section-title">🏆 Invitaciones</h2>
-<section class="gallery">
-    <div class="zoom-container">
-        <img src="Jugador 2..png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="Jugador 4..png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="Jugador 11..png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="Jugador 14..png">
-        <div class="zoom-lens"></div>
-    </div>
-</section>
+<footer>© 2026 · Hecho por mí 😎</footer>
 
-<h2 class="section-title">🎬 Miniaturas</h2>
-<section class="gallery">
-    <div class="zoom-container">
-        <img src="jospeh detective miniatura.png">
-        <div class="zoom-lens"></div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+    <div class="modal-left">
+        <img id="modal-img">
+        <div class="zoom-lens" id="lens"></div>
     </div>
-    <div class="zoom-container">
-        <img src="peak mini final.png">
-        <div class="zoom-lens"></div>
+    <div class="modal-right">
+        <h2>Descripción</h2>
+        <p id="modal-desc"></p>
+        <div class="back-btn" onclick="closeModal()">⬅ Atrás</div>
     </div>
-    <div class="zoom-container">
-        <img src="peak wsa final.png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="fuega cubecraft detalles.png">
-        <div class="zoom-lens"></div>
-    </div>
-</section>
-
-<h2 class="section-title">🔥 Especiales</h2>
-<section class="gallery">
-    <div class="zoom-container">
-        <img src="tuenyyy f.png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="tuenyyy.png">
-        <div class="zoom-lens"></div>
-    </div>
-    <div class="zoom-container">
-        <img src="wazvii encadenado.png">
-        <div class="zoom-lens"></div>
-    </div>
-</section>
-
-<footer>
-    © 2026 · Jozart 😎
-</footer>
+</div>
+</div>
 
 <script>
-document.querySelectorAll(".zoom-container").forEach(container => {
-    const img = container.querySelector("img");
-    const lens = container.querySelector(".zoom-lens");
-    const zoom = 2;
+const modal=document.getElementById("modal");
+const modalImg=document.getElementById("modal-img");
+const modalDesc=document.getElementById("modal-desc");
+const lens=document.getElementById("lens");
+const zoom=2;
 
-    img.addEventListener("load", () => {
-        lens.style.backgroundImage = `url(${img.src})`;
-        lens.style.backgroundSize =
-            `${img.width * zoom}px ${img.height * zoom}px`;
-    });
-
-    container.addEventListener("mousemove", e => {
-        const rect = img.getBoundingClientRect();
-        let x = e.clientX - rect.left - lens.offsetWidth / 2;
-        let y = e.clientY - rect.top - lens.offsetHeight / 2;
-
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        if (x > img.width - lens.offsetWidth) x = img.width - lens.offsetWidth;
-        if (y > img.height - lens.offsetHeight) y = img.height - lens.offsetHeight;
-
-        lens.style.left = x + "px";
-        lens.style.top = y + "px";
-        lens.style.backgroundPosition =
-            `-${x * zoom}px -${y * zoom}px`;
-        lens.style.display = "block";
-    });
-
-    container.addEventListener("mouseleave", () => {
-        lens.style.display = "none";
-    });
+document.querySelectorAll(".gallery img").forEach(img=>{
+    img.onclick=()=>{
+        modal.style.display="flex";
+        modalImg.src=img.src;
+        modalDesc.textContent=img.dataset.desc;
+        lens.style.backgroundImage=`url(${img.src})`;
+    }
 });
+
+modalImg.onload=()=>{
+    lens.style.backgroundSize=
+        modalImg.width*zoom+"px "+modalImg.height*zoom+"px";
+};
+
+modalImg.onmousemove=e=>{
+    const r=modalImg.getBoundingClientRect();
+    let x=e.clientX-r.left-lens.offsetWidth/2;
+    let y=e.clientY-r.top-lens.offsetHeight/2;
+    if(x<0)x=0;if(y<0)y=0;
+    if(x>modalImg.width-lens.offsetWidth)x=modalImg.width-lens.offsetWidth;
+    if(y>modalImg.height-lens.offsetHeight)y=modalImg.height-lens.offsetHeight;
+    lens.style.left=x+"px";
+    lens.style.top=y+"px";
+    lens.style.backgroundPosition=`-${x*zoom}px -${y*zoom}px`;
+    lens.style.display="block";
+};
+
+modalImg.onmouseleave=()=>lens.style.display="none";
+function closeModal(){modal.style.display="none"}
 </script>
 
 </body>
 </html>
+
 
 
 
