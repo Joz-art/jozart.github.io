@@ -53,11 +53,6 @@
             width: 100%;
             border-radius: 15px;
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05);
         }
 
         footer {
@@ -65,50 +60,22 @@
             color: #666;
         }
 
-        /* ===== NUEVO: VISTA DETALLE / ZOOM ===== */
-        .detalle-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-
-        .detalle-box {
-            background: #1a1a25;
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 900px;
-            width: 95%;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .detalle-box img {
-            max-width: 400px;
-            width: 100%;
+        /* ===== ZOOM TIPO LUPA ===== */
+        .zoom-container {
+            position: relative;
+            overflow: hidden;
             border-radius: 15px;
         }
 
-        .detalle-info {
-            max-width: 350px;
-            text-align: left;
-        }
-
-        .btn-cerrar {
-            background: #22c55e;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 10px;
+        .zoom-lens {
+            position: absolute;
+            border: 2px solid #6c63ff;
+            width: 120px;
+            height: 120px;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            display: none;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -128,83 +95,122 @@
 
 <h2 class="section-title">🏆 Invitaciones</h2>
 <section class="gallery">
-    <img src="participante 1.png" data-titulo="Invitación" data-desc="Render hecho en Blender con iluminación suave.">
-    <img src="participante 4.png" data-titulo="Invitación" data-desc="Diseño limpio y estilo profesional.">
-    <img src="participante 7.png" data-titulo="Invitación" data-desc="Render 3D para evento especial.">
-    <img src="participante 8.png" data-titulo="Invitación" data-desc="Trabajo detallado con enfoque visual.">
+    <div class="zoom-container">
+        <img src="participante 1.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="participante 4.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="participante 7.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="participante 8.png">
+        <div class="zoom-lens"></div>
+    </div>
 </section>
 
 <h2 class="section-title">🏆 Invitaciones</h2>
 <section class="gallery">
-    <img src="Jugador 2..png" data-titulo="Jugador" data-desc="Render de personaje estilo Minecraft.">
-    <img src="Jugador 4..png" data-titulo="Jugador" data-desc="Iluminación y sombras suaves.">
-    <img src="Jugador 11..png" data-titulo="Jugador" data-desc="Render dinámico con fondo oscuro.">
-    <img src="Jugador 14..png" data-titulo="Jugador" data-desc="Estilo cinemático.">
+    <div class="zoom-container">
+        <img src="Jugador 2..png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="Jugador 4..png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="Jugador 11..png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="Jugador 14..png">
+        <div class="zoom-lens"></div>
+    </div>
 </section>
 
 <h2 class="section-title">🎬 Miniaturas</h2>
 <section class="gallery">
-    <img src="jospeh detective miniatura.png" data-titulo="Miniatura" data-desc="Miniatura para YouTube.">
-    <img src="peak mini final.png" data-titulo="Miniatura" data-desc="Diseño llamativo y contrastado.">
-    <img src="peak wsa final.png" data-titulo="Miniatura" data-desc="Estilo moderno.">
-    <img src="fuega cubecraft detalles.png" data-titulo="Miniatura" data-desc="Detalles resaltados.">
+    <div class="zoom-container">
+        <img src="jospeh detective miniatura.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="peak mini final.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="peak wsa final.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="fuega cubecraft detalles.png">
+        <div class="zoom-lens"></div>
+    </div>
 </section>
 
 <h2 class="section-title">🔥 Especiales</h2>
 <section class="gallery">
-    <img src="tuenyyy f.png" data-titulo="Especial" data-desc="Render especial con efectos.">
-    <img src="tuenyyy.png" data-titulo="Especial" data-desc="Versión alternativa del render.">
-    <img src="wazvii encadenado lus mas intensa.png" data-titulo="Especial" data-desc="Ambiente oscuro y dramático.">
+    <div class="zoom-container">
+        <img src="tuenyyy f.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="tuenyyy.png">
+        <div class="zoom-lens"></div>
+    </div>
+    <div class="zoom-container">
+        <img src="wazvii encadenado.png">
+        <div class="zoom-lens"></div>
+    </div>
 </section>
 
 <footer>
-    © 2026 · Hecho por mí 😎
+    © 2026 · Jozart 😎
 </footer>
 
-<!-- ===== NUEVO: JS DEL ZOOM Y DESCRIPCIÓN ===== -->
 <script>
-document.querySelectorAll(".gallery img").forEach(img => {
-    img.addEventListener("click", () => {
+document.querySelectorAll(".zoom-container").forEach(container => {
+    const img = container.querySelector("img");
+    const lens = container.querySelector(".zoom-lens");
+    const zoom = 2;
 
-        const overlay = document.createElement("div");
-        overlay.className = "detalle-overlay";
+    img.addEventListener("load", () => {
+        lens.style.backgroundImage = `url(${img.src})`;
+        lens.style.backgroundSize =
+            `${img.width * zoom}px ${img.height * zoom}px`;
+    });
 
-        const box = document.createElement("div");
-        box.className = "detalle-box";
+    container.addEventListener("mousemove", e => {
+        const rect = img.getBoundingClientRect();
+        let x = e.clientX - rect.left - lens.offsetWidth / 2;
+        let y = e.clientY - rect.top - lens.offsetHeight / 2;
 
-        const imagen = document.createElement("img");
-        imagen.src = img.src;
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+        if (x > img.width - lens.offsetWidth) x = img.width - lens.offsetWidth;
+        if (y > img.height - lens.offsetHeight) y = img.height - lens.offsetHeight;
 
-        const info = document.createElement("div");
-        info.className = "detalle-info";
+        lens.style.left = x + "px";
+        lens.style.top = y + "px";
+        lens.style.backgroundPosition =
+            `-${x * zoom}px -${y * zoom}px`;
+        lens.style.display = "block";
+    });
 
-        const titulo = document.createElement("h2");
-        titulo.innerText = img.dataset.titulo || "Render";
-
-        const desc = document.createElement("p");
-        desc.innerText = img.dataset.desc || "Sin descripción.";
-
-        const cerrar = document.createElement("button");
-        cerrar.className = "btn-cerrar";
-        cerrar.innerText = "⬅ Atrás";
-
-        cerrar.onclick = () => overlay.remove();
-
-        info.appendChild(titulo);
-        info.appendChild(desc);
-        info.appendChild(cerrar);
-
-        box.appendChild(imagen);
-        box.appendChild(info);
-        overlay.appendChild(box);
-
-        document.body.appendChild(overlay);
+    container.addEventListener("mouseleave", () => {
+        lens.style.display = "none";
     });
 });
 </script>
 
 </body>
 </html>
+
 
 
 
