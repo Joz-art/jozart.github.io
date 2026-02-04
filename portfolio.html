@@ -45,7 +45,6 @@ header p{color:#aaa}
     width:100%;
     border-radius:15px;
     cursor:pointer;
-    /* Lazy load */
     loading: lazy;
 }
 
@@ -70,10 +69,13 @@ footer{padding:20px;color:#666}
     gap:20px;
     padding:20px;
     position:relative;
+    flex-direction:column;
+    align-items:center;
 }
 .modal-left{
     position:relative;
     flex:1;
+    width:100%;
 }
 .modal-left img{
     width:100%;
@@ -92,11 +94,13 @@ footer{padding:20px;color:#666}
 .modal-right{
     flex:1;
     text-align:left;
+    width:100%;
+    margin-top:10px;
 }
 .back-btn{
     display:inline-block;
-    margin-top:20px;
-    padding:12px 20px;
+    margin-top:10px;
+    padding:10px 18px;
     background:#22c55e;
     color:black;
     border-radius:10px;
@@ -121,6 +125,33 @@ footer{padding:20px;color:#666}
 .modal-arrow:hover { background: rgba(0,0,0,0.6); }
 .modal-arrow.left { left: 10px; }
 .modal-arrow.right { right: 10px; }
+
+/* ===== MINIATURAS DENTRO DEL MODAL ===== */
+.modal-thumbnails{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    margin-top:15px;
+    padding-bottom:5px;
+    width:100%;
+    justify-content:center;
+}
+.modal-thumbnails img{
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:.2s;
+}
+.modal-thumbnails img.active{
+    border-color:#6c63ff;
+}
+.counter{
+    margin-top:5px;
+    color:#aaa;
+}
 </style>
 </head>
 
@@ -187,7 +218,11 @@ footer{padding:20px;color:#666}
         <h2>Descripción</h2>
         <p id="modal-desc"></p>
         <div class="back-btn" onclick="closeModal()">⬅ Atrás</div>
+        <div class="counter" id="modal-counter"></div>
     </div>
+
+    <!-- MINIATURAS DENTRO DEL MODAL -->
+    <div class="modal-thumbnails" id="modal-thumbnails"></div>
 
     <!-- FLECHAS -->
     <div class="modal-arrow left" onclick="prevImage()">&#10094;</div>
@@ -201,19 +236,38 @@ const modal=document.getElementById("modal");
 const modalImg=document.getElementById("modal-img");
 const modalDesc=document.getElementById("modal-desc");
 const lens=document.getElementById("lens");
+const modalCounter=document.getElementById("modal-counter");
+const modalThumbnails=document.getElementById("modal-thumbnails");
 const zoom=2;
 
 // ===== IMÁGENES =====
 const allImages = Array.from(document.querySelectorAll(".gallery img"));
 let currentIndex = 0;
 
+// Crear miniaturas dentro del modal
+allImages.forEach((img,i)=>{
+    const thumb = img.cloneNode();
+    thumb.classList.add(i===0 ? 'active':'');
+    thumb.onclick = ()=> openModal(i);
+    modalThumbnails.appendChild(thumb);
+});
+
+function updateThumbnails(){
+    modalThumbnails.querySelectorAll("img").forEach((img,i)=>{
+        img.classList.toggle("active", i===currentIndex);
+    });
+}
+
+// Abrir modal
 function openModal(index){
     const img = allImages[index];
     modal.style.display="flex";
-    modalImg.src=img.src;
+    modalImg.src = img.src;
     modalDesc.textContent = img.dataset.desc;
     lens.style.backgroundImage = `url(${img.src})`;
     currentIndex = index;
+    modalCounter.textContent = `Render ${currentIndex+1} de ${allImages.length}`;
+    updateThumbnails();
 }
 
 allImages.forEach((img,i)=>{
@@ -265,6 +319,7 @@ document.addEventListener("keydown", e=>{
 
 </body>
 </html>
+
 
 
 
