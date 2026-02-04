@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Joz Art</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #0f0f14;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .intro {
+            animation: fadeIn 1.2s ease;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .preview {
+            width: 280px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dots {
+            font-size: 2em;
+            cursor: pointer;
+            animation: bounce 1.5s infinite;
+        }
+
+        .dots a {
+            color: white;
+            text-decoration: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="intro">
+    <h1>✨ Joz Art ✨</h1>
+    <p>Renders 3D · Blender · Minecraft</p>
+
+    <!-- IMAGEN DE PREVIEW -->
+    <img src="preview.png" class="preview">
+
+    <!-- 3 PUNTICOS -->
+    <div class="dots">
+        <a href="portfolio.html">•••</a>
+    </div>
+</div>
+
+</body>
+</html>
