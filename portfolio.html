@@ -232,70 +232,68 @@ footer{padding:20px;color:#666}
 </div>
 
 <script>
-const modal=document.getElementById("modal");
-const modalImg=document.getElementById("modal-img");
-const modalDesc=document.getElementById("modal-desc");
-const lens=document.getElementById("lens");
-const modalCounter=document.getElementById("modal-counter");
-const modalThumbnails=document.getElementById("modal-thumbnails");
-const zoom=2;
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modal-img");
+const modalDesc = document.getElementById("modal-desc");
+const lens = document.getElementById("lens");
+const modalCounter = document.getElementById("modal-counter");
+const modalThumbnails = document.getElementById("modal-thumbnails");
+const zoom = 2;
 
 // ===== IMÁGENES =====
 const allImages = Array.from(document.querySelectorAll(".gallery img"));
 let currentIndex = 0;
 
 // Crear miniaturas dentro del modal
-allImages.forEach((img,i)=>{
-    const thumb = img.cloneNode();
-    thumb.classList.add(i===0 ? 'active':'');
-    thumb.onclick = ()=> openModal(i);
-    modalThumbnails.appendChild(thumb);
-});
-
-function updateThumbnails(){
-    modalThumbnails.querySelectorAll("img").forEach((img,i)=>{
-        img.classList.toggle("active", i===currentIndex);
+function createThumbnails(){
+    modalThumbnails.innerHTML = ""; // limpiar antes de crear
+    allImages.forEach((img,i)=>{
+        const thumb = img.cloneNode();
+        thumb.classList.toggle("active", i===currentIndex);
+        thumb.onclick = () => openModal(i);
+        modalThumbnails.appendChild(thumb);
     });
 }
 
 // Abrir modal
 function openModal(index){
-    const img = allImages[index];
-    modal.style.display="flex";
+    currentIndex = index;
+    const img = allImages[currentIndex];
+    modal.style.display = "flex";
     modalImg.src = img.src;
     modalDesc.textContent = img.dataset.desc;
     lens.style.backgroundImage = `url(${img.src})`;
-    currentIndex = index;
     modalCounter.textContent = `Render ${currentIndex+1} de ${allImages.length}`;
-    updateThumbnails();
+    createThumbnails();
 }
 
+// Asignar click a las imágenes de la galería
 allImages.forEach((img,i)=>{
-    img.onclick=()=>openModal(i);
+    img.onclick = ()=> openModal(i);
 });
 
 // ===== ZOOM =====
-modalImg.onload=()=>{
+modalImg.onload = () => {
     lens.style.backgroundSize = modalImg.width*zoom + "px " + modalImg.height*zoom + "px";
 };
 
-modalImg.onmousemove=e=>{
-    const r=modalImg.getBoundingClientRect();
-    let x=e.clientX-r.left-lens.offsetWidth/2;
-    let y=e.clientY-r.top-lens.offsetHeight/2;
+modalImg.onmousemove = e => {
+    const r = modalImg.getBoundingClientRect();
+    let x = e.clientX - r.left - lens.offsetWidth/2;
+    let y = e.clientY - r.top - lens.offsetHeight/2;
 
     if(x<0)x=0;
     if(y<0)y=0;
     if(x>modalImg.width-lens.offsetWidth) x=modalImg.width-lens.offsetWidth;
     if(y>modalImg.height-lens.offsetHeight) y=modalImg.height-lens.offsetHeight;
 
-    lens.style.left=x+"px";
-    lens.style.top=y+"px";
-    lens.style.backgroundPosition=`-${x*zoom}px -${y*zoom}px`;
-    lens.style.display="block";
+    lens.style.left = x + "px";
+    lens.style.top = y + "px";
+    lens.style.backgroundPosition = `-${x*zoom}px -${y*zoom}px`;
+    lens.style.display = "block";
 };
 
-modalImg.onmouseleave=()=>lens.style.display="none";
+modalImg.onmouseleave = () => lens.style.display = "none";
 
 // ===== FLECHAS =====
 function prevImage(){
@@ -312,7 +310,7 @@ function nextImage(){
 function closeModal(){ modal.style.display="none"; }
 
 // ===== CERRAR CON ESC =====
-document.addEventListener("keydown", e=>{
+document.addEventListener("keydown", e => {
     if(e.key==="Escape") closeModal();
 });
 </script>
