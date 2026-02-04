@@ -13,6 +13,7 @@ body{
     color:white;
     text-align:center;
 }
+
 header{padding:30px}
 header h1{margin:0;font-size:2.5em}
 header p{color:#aaa}
@@ -25,8 +26,14 @@ header p{color:#aaa}
     color:white;
     text-decoration:none;
     border-radius:10px;
+    transition:.2s;
 }
 .socials a:hover{background:#6c63ff}
+
+.section-title{
+    margin-top:40px;
+    color:#ddd;
+}
 
 .gallery{
     display:grid;
@@ -46,7 +53,7 @@ footer{padding:20px;color:#666}
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.8);
+    background:rgba(0,0,0,.85);
     display:none;
     justify-content:center;
     align-items:center;
@@ -77,6 +84,7 @@ footer{padding:20px;color:#666}
     display:none;
     pointer-events:none;
     background-repeat:no-repeat;
+    border-radius:10px;
 }
 .modal-right{
     flex:1;
@@ -100,6 +108,7 @@ footer{padding:20px;color:#666}
 <header>
 <h1>✨ Mis Renders ✨</h1>
 <p>Blender · Minecraft · Arte 3D</p>
+
 <div class="socials">
 <a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
 <a href="https://www.tiktok.com/@soy_joseph972" target="_blank">TikTok</a>
@@ -107,14 +116,44 @@ footer{padding:20px;color:#666}
 </div>
 </header>
 
+<!-- INVITACIONES -->
+<h2 class="section-title">🏆 Invitaciones</h2>
 <section class="gallery">
-<img src="participante 1.png" data-desc="Render invitación · Blender">
-<img src="participante 4.png" data-desc="Render invitación · Minecraft">
-<img src="participante 7.png" data-desc="Iluminación cinemática">
-<img src="participante 8.png" data-desc="Edición profesional">
+<img src="participante 1.png" data-desc="Invitación · Render Blender">
+<img src="participante 4.png" data-desc="Invitación · Render Minecraft">
+<img src="participante 7.png" data-desc="Invitación · Iluminación cinemática">
+<img src="participante 8.png" data-desc="Invitación · Edición final">
 </section>
 
-<footer>© 2026 · Hecho por mí 😎</footer>
+<!-- JUGADORES -->
+<h2 class="section-title">🎮 Jugadores</h2>
+<section class="gallery">
+<img src="Jugador 2..png" data-desc="Render jugador personalizado">
+<img src="Jugador 4..png" data-desc="Render jugador con pose">
+<img src="Jugador 11..png" data-desc="Render jugador con iluminación">
+<img src="Jugador 14..png" data-desc="Render jugador edición final">
+</section>
+
+<!-- MINIATURAS -->
+<h2 class="section-title">🎬 Miniaturas</h2>
+<section class="gallery">
+<img src="jospeh detective miniatura.png" data-desc="Miniatura YouTube estilo detective">
+<img src="peak mini final.png" data-desc="Miniatura Peak">
+<img src="peak wsa final.png" data-desc="Miniatura WSA">
+<img src="fuega cubecraft detalles.png" data-desc="Miniatura Cubecraft">
+</section>
+
+<!-- ESPECIALES -->
+<h2 class="section-title">🔥 Especiales</h2>
+<section class="gallery">
+<img src="tuenyyy f.png" data-desc="Render especial">
+<img src="tuenyyy.png" data-desc="Render especial alternativo">
+<img src="wazvii encadenado.png" data-desc="Render cinemático encadenado">
+</section>
+
+<footer>
+© 2026 · Hecho por mí 😎
+</footer>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
@@ -156,9 +195,14 @@ modalImg.onmousemove=e=>{
     const r=modalImg.getBoundingClientRect();
     let x=e.clientX-r.left-lens.offsetWidth/2;
     let y=e.clientY-r.top-lens.offsetHeight/2;
-    if(x<0)x=0;if(y<0)y=0;
-    if(x>modalImg.width-lens.offsetWidth)x=modalImg.width-lens.offsetWidth;
-    if(y>modalImg.height-lens.offsetHeight)y=modalImg.height-lens.offsetHeight;
+
+    if(x<0)x=0;
+    if(y<0)y=0;
+    if(x>modalImg.width-lens.offsetWidth)
+        x=modalImg.width-lens.offsetWidth;
+    if(y>modalImg.height-lens.offsetHeight)
+        y=modalImg.height-lens.offsetHeight;
+
     lens.style.left=x+"px";
     lens.style.top=y+"px";
     lens.style.backgroundPosition=`-${x*zoom}px -${y*zoom}px`;
@@ -171,6 +215,7 @@ function closeModal(){modal.style.display="none"}
 
 </body>
 </html>
+
 
 
 
