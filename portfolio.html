@@ -15,7 +15,6 @@ body{
     text-align:center;
     transition: background 0.3s, color 0.3s;
 }
-
 body.light{
     background:#f0f0f0;
     color:#111;
@@ -24,7 +23,6 @@ body.light{
 header{padding:30px; position:relative;}
 header h1{margin:0;font-size:2.5em}
 header p{color:#aaa}
-
 body.light header p{color:#555;}
 
 .socials a{
@@ -37,35 +35,12 @@ body.light header p{color:#555;}
     border-radius:10px;
     transition:.2s;
 }
-.socials a:hover{background:#6c63ff}
-
+.socials a:hover{background:#6c63ff;}
 body.light .socials a{
     background:#ddd;
     color:#111;
 }
 body.light .socials a:hover{background:#6c63ff;}
-
-.section-title{
-    margin-top:40px;
-    color:#ddd;
-}
-body.light .section-title{color:#333;}
-
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
-    padding:20px;
-}
-.gallery img{
-    width:100%;
-    border-radius:15px;
-    cursor:pointer;
-    loading: lazy;
-}
-
-footer{padding:20px;color:#666;}
-body.light footer{color:#333;}
 
 /* ===== BOTON MODO OSCURO ===== */
 #dark-mode-btn{
@@ -109,6 +84,48 @@ body.light #dark-mode-btn{
     background:#22c55e;
 }
 
+/* ===== ESTADISTICAS ===== */
+#stats{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+.stat{
+    background:#1f1f2e;
+    padding:15px 20px;
+    border-radius:15px;
+    font-weight:bold;
+}
+body.light .stat{
+    background:#ddd;
+    color:#111;
+}
+
+/* ===== GALERIA ===== */
+.section-title{
+    margin-top:40px;
+    color:#ddd;
+}
+body.light .section-title{color:#333;}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    padding:20px;
+}
+.gallery img{
+    width:100%;
+    border-radius:15px;
+    cursor:pointer;
+    loading: lazy;
+}
+
+footer{padding:20px;color:#666;}
+body.light footer{color:#333;}
+
 /* ===== MODAL ===== */
 .modal{
     position:fixed;
@@ -119,7 +136,6 @@ body.light #dark-mode-btn{
     align-items:center;
     z-index:999;
 }
-
 .modal-content{
     background:#151520;
     border-radius:20px;
@@ -144,7 +160,6 @@ body.light .modal-content{ background:#f9f9f9; color:#111; }
     display:flex;
     justify-content:center;
 }
-
 .modal-left img{
     width:auto;
     max-width:100%;
@@ -152,7 +167,6 @@ body.light .modal-content{ background:#f9f9f9; color:#111; }
     border-radius:15px;
     object-fit:contain;
 }
-
 .zoom-lens{
     position:absolute;
     width:120px;
@@ -163,14 +177,12 @@ body.light .modal-content{ background:#f9f9f9; color:#111; }
     background-repeat:no-repeat;
     border-radius:10px;
 }
-
 .modal-right{
     flex:0;
     width:100%;
     margin-top:10px;
     text-align:left;
 }
-
 .back-btn{
     display:inline-block;
     margin-top:10px;
@@ -180,6 +192,21 @@ body.light .modal-content{ background:#f9f9f9; color:#111; }
     border-radius:10px;
     cursor:pointer;
     font-weight:bold;
+}
+/* ===== PROGRESO MODAL ===== */
+#progress-bar{
+    width:100%;
+    height:8px;
+    background:#333;
+    border-radius:4px;
+    margin-top:10px;
+}
+#progress{
+    height:100%;
+    background:#6c63ff;
+    width:0%;
+    border-radius:4px;
+    transition: width .3s;
 }
 
 /* ===== FLECHAS ===== */
@@ -200,7 +227,7 @@ body.light .modal-content{ background:#f9f9f9; color:#111; }
 .modal-arrow.left { left: 10px; }
 .modal-arrow.right { right: 10px; }
 
-/* ===== MINIATURAS DENTRO DEL MODAL ===== */
+/* ===== MINIATURAS MODAL ===== */
 .modal-thumbnails{
     display:flex;
     gap:10px;
@@ -230,21 +257,26 @@ body.light .modal-content{ background:#f9f9f9; color:#111; }
 body.light .counter{ color:#555; }
 </style>
 </head>
-
 <body>
 
 <header>
 <h1>✨ Mis Renders ✨</h1>
 <p>Blender · Minecraft · Arte 3D</p>
-
 <button id="dark-mode-btn">🌙</button>
-
 <div class="socials">
 <a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
 <a href="https://www.tiktok.com/@soy_joseph972" target="_blank">TikTok</a>
 <a href="https://www.youtube.com/@Soy_joseph972" target="_blank">YouTube</a>
 </div>
 </header>
+
+<!-- ESTADISTICAS -->
+<div id="stats">
+    <div class="stat">+20 Miniaturas/Renders</div>
+    <div class="stat">+5 Clientes</div>
+    <div class="stat">+2 Años Creando</div>
+    <div class="stat">Aprendiendo y creciendo cada día 💪</div>
+</div>
 
 <!-- FILTROS -->
 <div id="filters">
@@ -258,36 +290,36 @@ body.light .counter{ color:#555; }
 <!-- INVITACIONES -->
 <h2 class="section-title">🏆 Invitaciones</h2>
 <section class="gallery" data-category="invitaciones">
-<img src="participante 1.png" data-desc="Invitación · Render Blender">
-<img src="participante 4.png" data-desc="Invitación · Render Minecraft">
-<img src="participante 7.png" data-desc="Invitación · Iluminación cinemática">
-<img src="participante 8.png" data-desc="Invitación · Edición final">
+<img src="participante 1.png" data-desc="Invitación · Render Blender" loading="lazy">
+<img src="participante 4.png" data-desc="Invitación · Render Minecraft" loading="lazy">
+<img src="participante 7.png" data-desc="Invitación · Iluminación cinemática" loading="lazy">
+<img src="participante 8.png" data-desc="Invitación · Edición final" loading="lazy">
 </section>
 
 <!-- JUGADORES -->
 <h2 class="section-title">🎮 Jugadores</h2>
 <section class="gallery" data-category="jugadores">
-<img src="Jugador 2..png" data-desc="Render jugador personalizado">
-<img src="Jugador 4..png" data-desc="Render jugador con pose">
-<img src="Jugador 11..png" data-desc="Render jugador con iluminación">
-<img src="Jugador 14..png" data-desc="Render jugador edición final">
+<img src="Jugador 2..png" data-desc="Render jugador personalizado" loading="lazy">
+<img src="Jugador 4..png" data-desc="Render jugador con pose" loading="lazy">
+<img src="Jugador 11..png" data-desc="Render jugador con iluminación" loading="lazy">
+<img src="Jugador 14..png" data-desc="Render jugador edición final" loading="lazy">
 </section>
 
 <!-- MINIATURAS -->
 <h2 class="section-title">🎬 Miniaturas</h2>
 <section class="gallery" data-category="miniaturas">
-<img src="jospeh detective miniatura.png" data-desc="Miniatura YouTube estilo detective">
-<img src="peak mini final.png" data-desc="Miniatura Peak">
-<img src="peak wsa final.png" data-desc="Miniatura WSA">
-<img src="fuega cubecraft detalles.png" data-desc="Miniatura Cubecraft">
+<img src="jospeh detective miniatura.png" data-desc="Miniatura YouTube estilo detective" loading="lazy">
+<img src="peak mini final.png" data-desc="Miniatura Peak" loading="lazy">
+<img src="peak wsa final.png" data-desc="Miniatura WSA" loading="lazy">
+<img src="fuega cubecraft detalles.png" data-desc="Miniatura Cubecraft" loading="lazy">
 </section>
 
 <!-- ESPECIALES -->
 <h2 class="section-title">🔥 Especiales</h2>
 <section class="gallery" data-category="especiales">
-<img src="tuenyyy f.png" data-desc="Render especial">
-<img src="tuenyyy.png" data-desc="Render especial alternativo">
-<img src="wazvii encadenado.png" data-desc="Render cinemático encadenado">
+<img src="tuenyyy f.png" data-desc="Render especial" loading="lazy">
+<img src="tuenyyy.png" data-desc="Render especial alternativo" loading="lazy">
+<img src="wazvii encadenado.png" data-desc="Render cinemático encadenado" loading="lazy">
 </section>
 
 <footer>
@@ -306,13 +338,13 @@ body.light .counter{ color:#555; }
         <p id="modal-desc"></p>
         <div class="back-btn" onclick="closeModal()">⬅ Atrás</div>
         <div class="counter" id="modal-counter"></div>
+        <div id="progress-bar"><div id="progress"></div></div>
     </div>
 
     <div class="modal-thumbnails" id="modal-thumbnails"></div>
 
     <div class="modal-arrow left" onclick="prevImage()">&#10094;</div>
     <div class="modal-arrow right" onclick="nextImage()">&#10095;</div>
-
 </div>
 </div>
 
@@ -330,7 +362,7 @@ filterButtons.forEach(btn=>{
         galleries.forEach(section=>{
             if(filter === "all" || section.dataset.category===filter){
                 section.style.display="grid";
-                section.previousElementSibling.style.display="block"; // el h2
+                section.previousElementSibling.style.display="block"; // h2
             } else{
                 section.style.display="none";
                 section.previousElementSibling.style.display="none";
@@ -353,17 +385,28 @@ const modalDesc = document.getElementById("modal-desc");
 const lens = document.getElementById("lens");
 const modalCounter = document.getElementById("modal-counter");
 const modalThumbnails = document.getElementById("modal-thumbnails");
+const progressBar = document.getElementById("progress");
 const zoom = 2;
 
 let allImages = Array.from(document.querySelectorAll(".gallery img"));
 let currentIndex = 0;
 
+// Filtrar miniaturas por categoría
+function getCategoryImages(){
+    const cat = allImages[currentIndex].closest(".gallery").dataset.category;
+    return Array.from(document.querySelectorAll(`.gallery[data-category='${cat}'] img`));
+}
+
 function createThumbnails(){
     modalThumbnails.innerHTML = "";
-    allImages.forEach((img,i)=>{
+    const catImages = getCategoryImages();
+    catImages.forEach((img,i)=>{
         const thumb = img.cloneNode();
-        thumb.classList.toggle("active", i===currentIndex);
-        thumb.onclick = () => openModal(i);
+        thumb.classList.toggle("active", img===allImages[currentIndex]);
+        thumb.onclick = () => {
+            currentIndex = allImages.indexOf(img);
+            openModal(currentIndex);
+        };
         modalThumbnails.appendChild(thumb);
     });
 }
@@ -375,7 +418,9 @@ function openModal(index){
     modalImg.src = img.src;
     modalDesc.textContent = img.dataset.desc;
     lens.style.backgroundImage = `url(${img.src})`;
-    modalCounter.textContent = `Render ${currentIndex+1} de ${allImages.length}`;
+    const catImages = getCategoryImages();
+    modalCounter.textContent = `Render ${catImages.indexOf(img)+1} de ${catImages.length}`;
+    progressBar.style.width = ((catImages.indexOf(img)+1)/catImages.length*100) + "%";
     createThumbnails();
 }
 
@@ -406,12 +451,18 @@ modalImg.onmousemove = e => {
 modalImg.onmouseleave = () => lens.style.display = "none";
 
 function prevImage(){
-    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+    const catImages = getCategoryImages();
+    let idx = catImages.indexOf(allImages[currentIndex]);
+    idx = (idx -1 + catImages.length) % catImages.length;
+    currentIndex = allImages.indexOf(catImages[idx]);
     openModal(currentIndex);
 }
 
 function nextImage(){
-    currentIndex = (currentIndex + 1) % allImages.length;
+    const catImages = getCategoryImages();
+    let idx = catImages.indexOf(allImages[currentIndex]);
+    idx = (idx +1) % catImages.length;
+    currentIndex = allImages.indexOf(catImages[idx]);
     openModal(currentIndex);
 }
 
