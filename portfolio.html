@@ -6,17 +6,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ===== COLORES ===== */
 body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#0f0f14;
     color:white;
     text-align:center;
+    transition: background 0.3s, color 0.3s;
 }
 
-header{padding:30px}
+body.light{
+    background:#f0f0f0;
+    color:#111;
+}
+
+header{padding:30px; position:relative;}
 header h1{margin:0;font-size:2.5em}
 header p{color:#aaa}
+
+body.light header p{color:#555;}
 
 .socials a{
     display:inline-block;
@@ -30,10 +39,17 @@ header p{color:#aaa}
 }
 .socials a:hover{background:#6c63ff}
 
+body.light .socials a{
+    background:#ddd;
+    color:#111;
+}
+body.light .socials a:hover{background:#6c63ff;}
+
 .section-title{
     margin-top:40px;
     color:#ddd;
 }
+body.light .section-title{color:#333;}
 
 .gallery{
     display:grid;
@@ -48,7 +64,50 @@ header p{color:#aaa}
     loading: lazy;
 }
 
-footer{padding:20px;color:#666}
+footer{padding:20px;color:#666;}
+body.light footer{color:#333;}
+
+/* ===== BOTON MODO OSCURO ===== */
+#dark-mode-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    padding:10px 15px;
+    background:#6c63ff;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+body.light #dark-mode-btn{
+    background:#111;
+    color:white;
+}
+
+/* ===== FILTROS ===== */
+#filters{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:15px;
+    flex-wrap:wrap;
+}
+#filters button{
+    padding:8px 16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#6c63ff;
+    color:white;
+    transition:.2s;
+}
+#filters button:hover{
+    background:#22c55e;
+}
+#filters button.active{
+    background:#22c55e;
+}
 
 /* ===== MODAL ===== */
 .modal{
@@ -72,9 +131,11 @@ footer{padding:20px;color:#666}
     gap:15px;
     padding:20px;
     position:relative;
-    max-height:90vh; /* Limita altura total del modal */
+    max-height:90vh;
     overflow:hidden;
+    transition: background 0.3s, color 0.3s;
 }
+body.light .modal-content{ background:#f9f9f9; color:#111; }
 
 .modal-left{
     position:relative;
@@ -87,7 +148,7 @@ footer{padding:20px;color:#666}
 .modal-left img{
     width:auto;
     max-width:100%;
-    max-height:70vh; /* Limita altura de la imagen */
+    max-height:70vh;
     border-radius:15px;
     object-fit:contain;
 }
@@ -166,6 +227,7 @@ footer{padding:20px;color:#666}
     margin-top:5px;
     color:#aaa;
 }
+body.light .counter{ color:#555; }
 </style>
 </head>
 
@@ -175,6 +237,8 @@ footer{padding:20px;color:#666}
 <h1>✨ Mis Renders ✨</h1>
 <p>Blender · Minecraft · Arte 3D</p>
 
+<button id="dark-mode-btn">🌙</button>
+
 <div class="socials">
 <a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
 <a href="https://www.tiktok.com/@soy_joseph972" target="_blank">TikTok</a>
@@ -182,9 +246,18 @@ footer{padding:20px;color:#666}
 </div>
 </header>
 
+<!-- FILTROS -->
+<div id="filters">
+    <button class="filter-btn active" data-filter="all">Todo</button>
+    <button class="filter-btn" data-filter="invitaciones">🏆 Invitaciones</button>
+    <button class="filter-btn" data-filter="jugadores">🎮 Jugadores</button>
+    <button class="filter-btn" data-filter="miniaturas">🎬 Miniaturas</button>
+    <button class="filter-btn" data-filter="especiales">🔥 Especiales</button>
+</div>
+
 <!-- INVITACIONES -->
 <h2 class="section-title">🏆 Invitaciones</h2>
-<section class="gallery">
+<section class="gallery" data-category="invitaciones">
 <img src="participante 1.png" data-desc="Invitación · Render Blender">
 <img src="participante 4.png" data-desc="Invitación · Render Minecraft">
 <img src="participante 7.png" data-desc="Invitación · Iluminación cinemática">
@@ -193,7 +266,7 @@ footer{padding:20px;color:#666}
 
 <!-- JUGADORES -->
 <h2 class="section-title">🎮 Jugadores</h2>
-<section class="gallery">
+<section class="gallery" data-category="jugadores">
 <img src="Jugador 2..png" data-desc="Render jugador personalizado">
 <img src="Jugador 4..png" data-desc="Render jugador con pose">
 <img src="Jugador 11..png" data-desc="Render jugador con iluminación">
@@ -202,7 +275,7 @@ footer{padding:20px;color:#666}
 
 <!-- MINIATURAS -->
 <h2 class="section-title">🎬 Miniaturas</h2>
-<section class="gallery">
+<section class="gallery" data-category="miniaturas">
 <img src="jospeh detective miniatura.png" data-desc="Miniatura YouTube estilo detective">
 <img src="peak mini final.png" data-desc="Miniatura Peak">
 <img src="peak wsa final.png" data-desc="Miniatura WSA">
@@ -211,7 +284,7 @@ footer{padding:20px;color:#666}
 
 <!-- ESPECIALES -->
 <h2 class="section-title">🔥 Especiales</h2>
-<section class="gallery">
+<section class="gallery" data-category="especiales">
 <img src="tuenyyy f.png" data-desc="Render especial">
 <img src="tuenyyy.png" data-desc="Render especial alternativo">
 <img src="wazvii encadenado.png" data-desc="Render cinemático encadenado">
@@ -235,10 +308,8 @@ footer{padding:20px;color:#666}
         <div class="counter" id="modal-counter"></div>
     </div>
 
-    <!-- MINIATURAS DENTRO DEL MODAL -->
     <div class="modal-thumbnails" id="modal-thumbnails"></div>
 
-    <!-- FLECHAS -->
     <div class="modal-arrow left" onclick="prevImage()">&#10094;</div>
     <div class="modal-arrow right" onclick="nextImage()">&#10095;</div>
 
@@ -246,6 +317,36 @@ footer{padding:20px;color:#666}
 </div>
 
 <script>
+/* ===== FILTROS ===== */
+const filterButtons = document.querySelectorAll(".filter-btn");
+const galleries = document.querySelectorAll(".gallery");
+
+filterButtons.forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+        document.querySelector(".filter-btn.active").classList.remove("active");
+        btn.classList.add("active");
+        const filter = btn.dataset.filter;
+
+        galleries.forEach(section=>{
+            if(filter === "all" || section.dataset.category===filter){
+                section.style.display="grid";
+                section.previousElementSibling.style.display="block"; // el h2
+            } else{
+                section.style.display="none";
+                section.previousElementSibling.style.display="none";
+            }
+        });
+    });
+});
+
+/* ===== MODO OSCURO / CLARO ===== */
+const darkBtn = document.getElementById("dark-mode-btn");
+darkBtn.addEventListener("click", ()=>{
+    document.body.classList.toggle("light");
+    darkBtn.textContent = document.body.classList.contains("light") ? "🌙" : "☀️";
+});
+
+/* ===== MODAL ===== */
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modal-img");
 const modalDesc = document.getElementById("modal-desc");
@@ -254,11 +355,9 @@ const modalCounter = document.getElementById("modal-counter");
 const modalThumbnails = document.getElementById("modal-thumbnails");
 const zoom = 2;
 
-// ===== IMÁGENES =====
-const allImages = Array.from(document.querySelectorAll(".gallery img"));
+let allImages = Array.from(document.querySelectorAll(".gallery img"));
 let currentIndex = 0;
 
-// Crear miniaturas dentro del modal
 function createThumbnails(){
     modalThumbnails.innerHTML = "";
     allImages.forEach((img,i)=>{
@@ -269,7 +368,6 @@ function createThumbnails(){
     });
 }
 
-// Abrir modal
 function openModal(index){
     currentIndex = index;
     const img = allImages[currentIndex];
@@ -281,12 +379,10 @@ function openModal(index){
     createThumbnails();
 }
 
-// Asignar click a las imágenes de la galería
 allImages.forEach((img,i)=>{
     img.onclick = ()=> openModal(i);
 });
 
-// ===== ZOOM =====
 modalImg.onload = () => {
     lens.style.backgroundSize = modalImg.width*zoom + "px " + modalImg.height*zoom + "px";
 };
@@ -309,7 +405,6 @@ modalImg.onmousemove = e => {
 
 modalImg.onmouseleave = () => lens.style.display = "none";
 
-// ===== FLECHAS =====
 function prevImage(){
     currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
     openModal(currentIndex);
@@ -320,10 +415,8 @@ function nextImage(){
     openModal(currentIndex);
 }
 
-// ===== CERRAR MODAL =====
 function closeModal(){ modal.style.display="none"; }
 
-// ===== CERRAR CON ESC =====
 document.addEventListener("keydown", e => {
     if(e.key==="Escape") closeModal();
 });
