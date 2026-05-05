@@ -39,6 +39,27 @@
       color: white;
       text-decoration: none;
     }
+    .perfil-box{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:20px;
+}
+
+.perfil-box input{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+}
+
+.perfil-box button{
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#6c63ff;
+  color:white;
+  cursor:pointer;
+}
   </style>
 </head>
 
@@ -50,13 +71,43 @@
 
     <!-- IMAGEN DE PORTADA -->
     <img src="preview.png" alt="Portada">
-
+  <!-- USUARIO -->
+  <div class="perfil-box">
+  <input type="text" id="username" placeholder="Tu nombre">
+  <input type="file" id="useravatar" accept="image/*">
+  <button onclick="saveProfile()">Guardar perfil</button>
+</div>
     <!-- 3 PUNTITOS -->
     <a href="portfolio.html">
     <h2> 👇Unde Aqui👇</h2>
     <div class="dots">•••</div>
     </a>
   </div>
+  <script>
+function saveProfile(){
+  const name = document.getElementById("username").value;
+  const avatarInput = document.getElementById("useravatar");
+
+  if(!name){
+    alert("Pon tu nombre bro 😠");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(){
+    localStorage.setItem("profileName", name);
+    localStorage.setItem("profileAvatar", reader.result || "");
+    alert("Perfil guardado 😎");
+  };
+
+  if(avatarInput.files[0]){
+    reader.readAsDataURL(avatarInput.files[0]);
+  } else{
+    reader.onload();
+  }
+}
+</script>
 
 </body>
 </html>
