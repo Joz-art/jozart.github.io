@@ -257,6 +257,75 @@ body.light .modal-content{ background:#f9f9f9; color:#111; }
     color:#aaa;
 }
 body.light .counter{ color:#555; }
+#comentarios{
+    padding:30px;
+    max-width:700px;
+    margin:auto;
+}
+
+#chat-box{
+    background:#1f1f2e;
+    border-radius:15px;
+    padding:15px;
+    height:300px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+body.light #chat-box{
+    background:#ddd;
+}
+
+.message{
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
+}
+
+.message img{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.bubble{
+    max-width:70%;
+    padding:10px 15px;
+    border-radius:15px;
+    background:#6c63ff;
+    color:white;
+    text-align:left;
+}
+
+.name{
+    font-size:0.8em;
+    opacity:0.7;
+}
+
+.chat-input{
+    margin-top:15px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.chat-input textarea{
+    padding:10px;
+    border-radius:10px;
+    border:none;
+}
+
+.chat-input button{
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#22c55e;
+    font-weight:bold;
+    cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -332,6 +401,16 @@ body.light .counter{ color:#555; }
 <img src="joseph x pst-Recuperado.png" data-desc="Colab Con PST STUDIOS" loading="lazy">
 
 
+</section>
+<section id="comentarios">
+    <h2>💬 Comentarios</h2>
+
+    <div id="chat-box"></div>
+
+    <div class="chat-input">
+        <textarea id="message" placeholder="Escribe tu comentario..."></textarea>
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
 </section>
 
 <footer>
@@ -483,6 +562,54 @@ function closeModal(){ modal.style.display="none"; }
 document.addEventListener("keydown", e => {
     if(e.key==="Escape") closeModal();
 });
+const chatBox = document.getElementById("chat-box");
+
+function loadMessages(){
+    const messages = JSON.parse(localStorage.getItem("comments") || "[]");
+    chatBox.innerHTML = "";
+    messages.forEach(msg => addMessage(msg));
+}
+
+function addMessage(msg){
+    const div = document.createElement("div");
+    div.classList.add("message");
+
+    div.innerHTML = `
+        <img src="${msg.avatar || 'https://i.imgur.com/4M34hi2.png'}">
+        <div>
+            <div class="name">${msg.name}</div>
+            <div class="bubble">${msg.text}</div>
+        </div>
+    `;
+
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function sendMessage(){
+    const text = document.getElementById("message").value;
+
+    const name = localStorage.getItem("profileName") || "Anónimo";
+    const avatarSaved = localStorage.getItem("profileAvatar");
+
+    if(!text.trim()) return;
+
+    const msg = {
+        name,
+        text,
+        avatar: avatarSaved
+    };
+
+    const messages = JSON.parse(localStorage.getItem("comments") || "[]");
+    messages.push(msg);
+    localStorage.setItem("comments", JSON.stringify(messages));
+
+    addMessage(msg);
+
+    document.getElementById("message").value = "";
+}
+
+loadMessages();
 </script>
 
 </body>
