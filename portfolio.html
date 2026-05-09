@@ -9,21 +9,6 @@
 
 <style>
 
-/* ===== PERFIL ===== */
-const profileName = localStorage.getItem("profileName");
-const profileAvatar = localStorage.getItem("profileAvatar");
-
-if(profileName){
-document.getElementById("user-profile").innerHTML =
-`<img src="${profileAvatar}" style="width:40px;border-radius:50%"> ${profileName}`;
-}
-
-/* ===== VISITAS ===== */
-let views = localStorage.getItem("views") || 0;
-views++;
-localStorage.setItem("views", views);
-document.getElementById("views").textContent = "👀 Visitas: " + views;
-
 /* ===== COLORES ===== */
 body{
     margin:0;
@@ -717,6 +702,24 @@ function deleteMessage(i){
 
     loadMessages();
 }
+/* ===== PERFIL ===== */
+const profileName = localStorage.getItem("profileName");
+const profileAvatar = localStorage.getItem("profileAvatar");
+
+if(profileName){
+document.getElementById("user-profile").innerHTML =
+`<img src="${profileAvatar}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;"> ${profileName}`;
+}
+
+/* ===== VISITAS ===== */
+let views = localStorage.getItem("views") || 0;
+
+views++;
+
+localStorage.setItem("views", views);
+
+document.getElementById("views").textContent =
+"👀 Visitas: " + views;
 
 loadMessages();
 </script>
