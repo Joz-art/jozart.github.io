@@ -368,11 +368,31 @@ body.light #chat-box{
 from{opacity:0;transform:translateY(10px);}
 to{opacity:1;transform:translateY(0);}
 }
+.logo{
+    width:120px;
+    margin-bottom:10px;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(108,99,255,.5);
+    transition:.3s;
+}
+
+.logo:hover{
+    transform:scale(1.05);
+}
+.footer-logo{
+    width:70px;
+    border-radius:15px;
+    margin-bottom:10px;
+    opacity:.9;
+}
 </style>
 </head>
 <body>
 
 <header>
+
+<img src="favicon.png" class="logo">
+
 <h1>✨ Mis Renders ✨</h1>
 <p>Blender · Minecraft · Arte 3D</p>
 <button id="dark-mode-btn">🌙</button>
@@ -381,11 +401,6 @@ to{opacity:1;transform:translateY(0);}
 <a href="https://www.youtube.com/@Jozart_x" target="_blank">YouTube</a>
 <a href="https://mail.google.com/mail/?view=cm&to=josephjuega972@gmail.com="_blank">Gmail</a>
 </div>
-<!-- PERFIL -->
-<div id="user-profile" style="margin-top:10px;"></div>
-
-<!-- VISITAS -->
-<p id="views">👀 Visitas: 0</p>
 </header>
 
 <!-- ESTADISTICAS -->
@@ -467,7 +482,11 @@ to{opacity:1;transform:translateY(0);}
 </section>
 
 <footer>
-© 2026 · Jozart 😎
+
+<img src="favicon.png" class="footer-logo">
+
+<p>© 2026 · Jozart 😎</p>
+
 </footer>
 
 <!-- MODAL -->
