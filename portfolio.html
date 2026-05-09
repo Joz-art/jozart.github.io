@@ -8,6 +8,22 @@
 
 
 <style>
+
+/* ===== PERFIL ===== */
+const profileName = localStorage.getItem("profileName");
+const profileAvatar = localStorage.getItem("profileAvatar");
+
+if(profileName){
+document.getElementById("user-profile").innerHTML =
+`<img src="${profileAvatar}" style="width:40px;border-radius:50%"> ${profileName}`;
+}
+
+/* ===== VISITAS ===== */
+let views = localStorage.getItem("views") || 0;
+views++;
+localStorage.setItem("views", views);
+document.getElementById("views").textContent = "👀 Visitas: " + views;
+
 /* ===== COLORES ===== */
 body{
     margin:0;
@@ -339,6 +355,34 @@ body.light #chat-box{
     max-width:90%;
     border-radius:15px;
 }
+
+/* ===== MEJORAS CHAT ===== */
+#chat-box{
+    scroll-behavior:smooth;
+}
+
+.message{
+    animation:fadeUp .3s ease;
+}
+
+.actions{
+    font-size:12px;
+    margin-top:5px;
+}
+
+.actions button{
+    border:none;
+    background:#22c55e;
+    margin-left:5px;
+    border-radius:5px;
+    cursor:pointer;
+    padding:2px 6px;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
 </style>
 </head>
 <body>
@@ -352,6 +396,11 @@ body.light #chat-box{
 <a href="https://www.youtube.com/@Jozart_x" target="_blank">YouTube</a>
 <a href="https://mail.google.com/mail/?view=cm&to=josephjuega972@gmail.com="_blank">Gmail</a>
 </div>
+<!-- PERFIL -->
+<div id="user-profile" style="margin-top:10px;"></div>
+
+<!-- VISITAS -->
+<p id="views">👀 Visitas: 0</p>
 </header>
 
 <!-- ESTADISTICAS -->
@@ -585,19 +634,37 @@ const chatBox = document.getElementById("chat-box");
 
 function loadMessages(){
     const messages = JSON.parse(localStorage.getItem("comments") || "[]");
-    chatBox.innerHTML = "";
-    messages.forEach(msg => addMessage(msg));
+
+    chatBox.innerHTML = messages.length === 0
+    ? "<p style='opacity:0.6'>No hay comentarios aún 😎</p>"
+    : "";
+
+    messages.forEach((msg,i) => addMessage(msg,i));
 }
 
-function addMessage(msg){
+function addMessage(msg, index){
     const div = document.createElement("div");
     div.classList.add("message");
 
     div.innerHTML = `
         <img src="${msg.avatar || 'https://i.imgur.com/4M34hi2.png'}">
+
         <div>
             <div class="name">${msg.name}</div>
+
             <div class="bubble">${msg.text}</div>
+
+            <div class="actions">
+                ❤️ ${msg.likes || 0}
+
+                <button onclick="likeMessage(${index})">
+                    Like
+                </button>
+
+                <button onclick="deleteMessage(${index})">
+                    🗑️
+                </button>
+            </div>
         </div>
     `;
 
@@ -616,16 +683,39 @@ function sendMessage(){
     const msg = {
         name,
         text,
-        avatar: avatarSaved
+        avatar: avatarSaved,
+        likes:0
     };
 
     const messages = JSON.parse(localStorage.getItem("comments") || "[]");
+
     messages.push(msg);
+
     localStorage.setItem("comments", JSON.stringify(messages));
 
-    addMessage(msg);
+    loadMessages();
 
     document.getElementById("message").value = "";
+}
+
+function likeMessage(i){
+    const messages = JSON.parse(localStorage.getItem("comments") || "[]");
+
+    messages[i].likes = (messages[i].likes || 0) + 1;
+
+    localStorage.setItem("comments", JSON.stringify(messages));
+
+    loadMessages();
+}
+
+function deleteMessage(i){
+    const messages = JSON.parse(localStorage.getItem("comments") || "[]");
+
+    messages.splice(i,1);
+
+    localStorage.setItem("comments", JSON.stringify(messages));
+
+    loadMessages();
 }
 
 loadMessages();
