@@ -21,6 +21,7 @@
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
+            touch-action: none; 
         }
 
         /* Ventana de recorte fija que contiene la experiencia */
@@ -35,7 +36,7 @@
         #camera-track {
             display: flex;
             flex-direction: row;
-            width: max-content; /* Se expande según el número de escenas */
+            width: max-content; 
             height: 100%;
             will-change: transform;
         }
@@ -51,13 +52,13 @@
             align-items: center;
         }
 
-        /* Capas de imágenes con margen extra para evitar bordes vacíos al moverse */
+        /* Capas de imágenes adaptables */
         .layer {
             position: absolute;
-            width: 108%;
-            height: 108%;
+            width: 115%; /* Un poco más de margen para el balanceo automático */
+            height: 115%;
             object-fit: cover;
-            pointer-events: none; /* Evita interferencias con el mouse tracking */
+            pointer-events: none; 
             will-change: transform;
         }
 
@@ -87,10 +88,11 @@
             z-index: 20;
             pointer-events: none;
             text-align: center;
+            padding: 20px;
         }
 
         .brand-title {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.5rem, 8vw, 6rem);
             font-weight: 900;
             letter-spacing: 0.5rem;
             text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
@@ -98,9 +100,9 @@
         }
 
         .brand-subtitle {
-            font-size: clamp(0.9rem, 2vw, 1.3rem);
+            font-size: clamp(0.8rem, 2vw, 1.3rem);
             font-weight: 300;
-            letter-spacing: 0.2rem;
+            letter-spacing: 0.15rem;
             text-transform: uppercase;
             color: #cccccc;
             text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.9);
@@ -109,10 +111,10 @@
 
         /* Botón interactivo */
         .btn-enter {
-            pointer-events: auto; /* Reactiva el mouse para permitir clics */
+            pointer-events: auto; 
             display: inline-block;
             padding: 1rem 2.5rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             letter-spacing: 0.1rem;
             text-decoration: none;
@@ -122,6 +124,7 @@
             border-radius: 4px;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent; 
         }
 
         .btn-enter:hover {
@@ -140,7 +143,7 @@
             
             <!-- Escena Izquierda (r3) -->
             <section class="scene" data-scene="r3">
-                <img src="r3 capa 0.png" alt="Fondo Escena Izquierda" class="layer layer-bg">
+                <img src="r3 capa 0" alt="Fondo Escena Izquierda" class="layer layer-bg">
                 <img src="r3 capa 1.png" alt="Frente Escena Izquierda" class="layer layer-fg">
             </section>
 
@@ -159,7 +162,7 @@
         </div>
     </main>
 
-    <!-- Overlay oscuro global para dar profundidad -->
+    <!-- Overlay oscuro global -->
     <div class="overlay"></div>
 
     <!-- Interfaz de Usuario fija (UI) -->
@@ -170,24 +173,27 @@
     </header>
 
     <!-- ==========================================
-       2. LÓGICA DE CONTROL E INTERPOLACIÓN (JS)
+       2. LÓGICA DE CONTROL INTELIGENTE (JS)
        ========================================== -->
     <script>
-        // --- PARÁMETROS DEL PARALLAX ---
-        const PARALLAX_BG_INTENSITY = 25;  // Intensidad de movimiento fondo (mismo sentido)
-        const PARALLAX_FG_INTENSITY = -35; // Intensidad de movimiento frente (sentido opuesto)
-        const LERP_FACTOR = 0.08;          // Factor de suavizado (menor = más pesado/suave)
+        // --- PARÁMETROS CONFIGURABLES ---
+        const PARALLAX_BG_INTENSITY = 25;  
+        const PARALLAX_FG_INTENSITY = -35; 
+        const LERP_FACTOR = 0.08;          
 
-        // --- SISTEMA DE NAVEGACIÓN INTELEGENTE DE BORDES ---
-        const EDGE_THRESHOLD = 0.08;       // Activa el cambio al tocar el 8% lateral de la pantalla
-        const HOLD_TIME_REQUIRED = 400;    // Tiempo de retención en el borde (ms) antes de cambiar
-        const DEBOUNCE_COOLDOWN = 1200;    // Tiempo muerto entre transiciones (ms)
+        // Configuración PC
+        const EDGE_THRESHOLD = 0.08;       
+        const HOLD_TIME_REQUIRED = 400;    
+        const DEBOUNCE_COOLDOWN = 1200;    
 
-        // Definición matemática del orden del riel
+        // Configuración exclusiva Móvil
+        const MOBILE_AUTO_SWAP_TIME = 4000; // Cambio de escena automático cada 4 segundos (4000ms)
+        const MOBILE_PARALLAX_SPEED = 0.0015; // Velocidad del balanceo automático (menor = más lento)
+
         const SCENE_ORDER = ['r3', 'r1', 'r2']; 
-        let currentSceneIndex = 1; // Posición de inicio en el DOM (r1 = Índice 1)
+        let currentSceneIndex = 1; 
 
-        // --- VARIABLES DE ESTADO ---
+        // Estados del sistema
         const mouse = { x: 0, y: 0 };
         const targetMouse = { x: 0, y: 0 };
         const camera = { targetX: 0, currentX: 0 };
@@ -195,36 +201,47 @@
         let edgeTimer = null;
         let isCooldown = false;
         let currentDirection = null;
+        let isMobile = false;
+        let autoPlayDirection = 1; // 1 va a la derecha, -1 va a la izquierda
 
-        // --- SELECTORES ---
         const cameraTrack = document.getElementById('camera-track');
         const scenes = document.querySelectorAll('.scene');
 
-        // Inicializar el centrado por defecto en r1
+        // --- DETECTOR DE DISPOSITIVOS ---
+        function detectDevice() {
+            // Verifica si el dispositivo soporta touch nativo o es una pantalla pequeña
+            isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 768);
+            
+            if (isMobile) {
+                initMobileAutoPlay();
+            } else {
+                initPCControls();
+            }
+        }
+
         function initCamera() {
             camera.targetX = -currentSceneIndex * window.innerWidth;
             camera.currentX = camera.targetX;
             cameraTrack.style.transform = `translate3d(${camera.currentX}px, 0px, 0px)`;
         }
 
-        // Recalcular posiciones si el usuario cambia el tamaño del navegador
         window.addEventListener('resize', () => {
             camera.targetX = -currentSceneIndex * window.innerWidth;
         });
 
-        // Capturar movimiento del ratón y mapear límites
-        window.addEventListener('mousemove', (e) => {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+        // --- CONFIGURACIÓN PARA PC ---
+        function initPCControls() {
+            window.addEventListener('mousemove', (e) => {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
 
-            // Normalización al rango [-1, 1]
-            targetMouse.x = (e.clientX / width) * 2 - 1;
-            targetMouse.y = (e.clientY / height) * 2 - 1;
+                targetMouse.x = (e.clientX / width) * 2 - 1;
+                targetMouse.y = (e.clientY / height) * 2 - 1;
 
-            checkScreenEdges(e.clientX, width);
-        });
+                checkScreenEdges(e.clientX, width);
+            });
+        }
 
-        // Analizador de bordes
         function checkScreenEdges(mouseX, screenWidth) {
             if (isCooldown) return;
 
@@ -242,7 +259,6 @@
 
         function startEdgeTimer(direction) {
             if (currentDirection === direction) return;
-            
             clearEdgeTimer();
             currentDirection = direction;
 
@@ -259,7 +275,28 @@
             currentDirection = null;
         }
 
-        // Desplazamiento lógico de la cámara
+        // --- CONFIGURACIÓN AUTOMÁTICA PARA MÓVILES ---
+        function initMobileAutoPlay() {
+            setInterval(() => {
+                // Lógica de vaivén: r1 -> r2 -> r1 -> r3 -> r1...
+                let nextIndex = currentSceneIndex + autoPlayDirection;
+
+                // Si llega al final de la derecha (r2), cambia de dirección hacia la izquierda
+                if (nextIndex >= SCENE_ORDER.length) {
+                    autoPlayDirection = -1;
+                    nextIndex = currentSceneIndex + autoPlayDirection;
+                } 
+                // Si llega al final de la izquierda (r3), cambia de dirección hacia la derecha
+                else if (nextIndex < 0) {
+                    autoPlayDirection = 1;
+                    nextIndex = currentSceneIndex + autoPlayDirection;
+                }
+
+                currentSceneIndex = nextIndex;
+            }, MOBILE_AUTO_SWAP_TIME);
+        }
+
+        // --- MOTOR DE NAVEGACIÓN GENERAL ---
         function navigateScene(direction) {
             let targetIndex = currentSceneIndex;
 
@@ -274,37 +311,39 @@
                 isCooldown = true;
                 clearEdgeTimer();
 
-                // Bloqueo temporal para dar estabilidad visual a la transición
                 setTimeout(() => {
                     isCooldown = false;
                 }, DEBOUNCE_COOLDOWN);
             }
         }
 
-        // Bucle Principal de Animación (60fps por GPU Hardware)
-        function animate() {
-            // Suavizado del mouse con Lerp
+        // --- LOOP DE ANIMACIÓN ---
+        function animate(timestamp) {
+            if (isMobile) {
+                // En móvil usamos funciones Seno y Coseno con el tiempo actual (timestamp)
+                // para crear curvas de movimiento orgánicas, fluidas e impredecibles.
+                targetMouse.x = Math.sin(timestamp * MOBILE_PARALLAX_SPEED) * 0.7;
+                targetMouse.y = Math.cos(timestamp * MOBILE_PARALLAX_SPEED * 1.3) * 0.5;
+            }
+
+            // Interpolación matemática (Lerp) para mantener la suavidad a 60 FPS
             mouse.x += (targetMouse.x - mouse.x) * LERP_FACTOR;
             mouse.y += (targetMouse.y - mouse.y) * LERP_FACTOR;
 
-            // Suavizado del riel de la cámara con Lerp
             camera.targetX = -currentSceneIndex * window.innerWidth;
             camera.currentX += (camera.targetX - camera.currentX) * LERP_FACTOR;
             
             cameraTrack.style.transform = `translate3d(${camera.currentX}px, 0px, 0px)`;
 
-            // Renderizar Parallax independiente por cada capa en pantalla
             scenes.forEach((scene) => {
                 const bgLayer = scene.querySelector('.layer-bg');
                 const fgLayer = scene.querySelector('.layer-fg');
 
                 if (bgLayer && fgLayer) {
-                    // Fondo (Misma dirección)
                     const bgX = mouse.x * PARALLAX_BG_INTENSITY;
                     const bgY = mouse.y * PARALLAX_BG_INTENSITY;
                     bgLayer.style.transform = `translate3d(${bgX}px, ${bgY}px, 0px)`;
 
-                    // Frente (Dirección inversa)
                     const fgX = mouse.x * PARALLAX_FG_INTENSITY;
                     const fgY = mouse.y * PARALLAX_FG_INTENSITY;
                     fgLayer.style.transform = `translate3d(${fgX}px, ${fgY}px, 0px)`;
@@ -314,7 +353,8 @@
             requestAnimationFrame(animate);
         }
 
-        // Encendido del motor
+        // --- ARRANQUE DEL MOTOR ---
+        detectDevice();
         initCamera();
         requestAnimationFrame(animate);
     </script>
