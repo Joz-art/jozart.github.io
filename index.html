@@ -1,114 +1,322 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>JozArt</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="favicon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JozArt | Portafolio</title>
+    <style>
+        /* ==========================================
+           1. ESTILOS BASE Y CONFIGURACIÓN (CSS)
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f14;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+        }
 
-    .portada img {
-      width: 280px;
-      border-radius: 20px;
-      margin: 20px 0;
-    }
+        /* Ventana de recorte fija que contiene la experiencia */
+        #viewport {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-    .dots {
-      font-size: 32px;
-      cursor: pointer;
-      animation: bounce 1.5s infinite;
-    }
+        /* Riel horizontal interactivo controlado por JS */
+        #camera-track {
+            display: flex;
+            flex-direction: row;
+            width: max-content; /* Se expande según el número de escenas */
+            height: 100%;
+            will-change: transform;
+        }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
+        /* Cada contenedor de escena ocupa toda la pantalla */
+        .scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    a {
-      color: white;
-      text-decoration: none;
-    }
-    .perfil-box{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  margin-top:20px;
-}
+        /* Capas de imágenes con margen extra para evitar bordes vacíos al moverse */
+        .layer {
+            position: absolute;
+            width: 108%;
+            height: 108%;
+            object-fit: cover;
+            pointer-events: none; /* Evita interferencias con el mouse tracking */
+            will-change: transform;
+        }
 
-.perfil-box input{
-  padding:10px;
-  border-radius:10px;
-  border:none;
-}
+        /* Viñeta de oscurecimiento cinematográfico */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
+            z-index: 10;
+        }
 
-.perfil-box button{
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#6c63ff;
-  color:white;
-  cursor:pointer;
-}
-  </style>
+        /* Interfaz estática superior */
+        .ui-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .brand-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: 0.5rem;
+            text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.3rem);
+            font-weight: 300;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            color: #cccccc;
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.9);
+            margin-bottom: 3rem;
+        }
+
+        /* Botón interactivo */
+        .btn-enter {
+            pointer-events: auto; /* Reactiva el mouse para permitir clics */
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            text-decoration: none;
+            color: #ffffff;
+            background: transparent;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-enter:hover {
+            background-color: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+    </style>
 </head>
-
 <body>
 
-  <div class="portada">
-    <h1>✨ JozArt ✨</h1>
-    <p>Portafolio 3D · Blender · Minecraft</p>
+    <!-- Contenedor principal de la cámara -->
+    <main id="viewport">
+        <div id="camera-track">
+            
+            <!-- Escena Izquierda (r3) -->
+            <section class="scene" data-scene="r3">
+                <img src="assets/r3/capa0.png" alt="Fondo Escena Izquierda" class="layer layer-bg">
+                <img src="assets/r3/capa1.png" alt="Frente Escena Izquierda" class="layer layer-fg">
+            </section>
 
-    <!-- IMAGEN DE PORTADA -->
-    <img src="preview.png" alt="Portada">
-  <!-- USUARIO -->
-  <div class="perfil-box">
-  <input type="text" id="username" placeholder="Tu nombre">
-  <input type="file" id="useravatar" accept="image/*">
-  <button onclick="saveProfile()">Guardar perfil</button>
-</div>
-    <!-- 3 PUNTITOS -->
-    <a href="portfolio.html">
-    <h2> 👇Unde Aqui👇</h2>
-    <div class="dots">•••</div>
-    </a>
-  </div>
-  <script>
-function saveProfile(){
-  const name = document.getElementById("username").value;
-  const avatarInput = document.getElementById("useravatar");
+            <!-- Escena Principal Centro (r1) -->
+            <section class="scene" data-scene="r1">
+                <img src="assets/r1/capa0.png" alt="Fondo Escena Principal" class="layer layer-bg">
+                <img src="assets/r1/capa1.png" alt="Frente Escena Principal" class="layer layer-fg">
+            </section>
 
-  if(!name){
-    alert("Pon tu nombre bro 😠");
-    return;
-  }
+            <!-- Escena Derecha (r2) -->
+            <section class="scene" data-scene="r2">
+                <img src="assets/r2/capa0.png" alt="Fondo Escena Derecha" class="layer layer-bg">
+                <img src="assets/r2/capa1.png" alt="Frente Escena Derecha" class="layer layer-fg">
+            </section>
 
-  const reader = new FileReader();
+        </div>
+    </main>
 
-  reader.onload = function(){
-    localStorage.setItem("profileName", name);
-    localStorage.setItem("profileAvatar", reader.result || "");
-    alert("Perfil guardado 😎");
-  };
+    <!-- Overlay oscuro global para dar profundidad -->
+    <div class="overlay"></div>
 
-  if(avatarInput.files[0]){
-    reader.readAsDataURL(avatarInput.files[0]);
-  } else{
-    reader.onload();
-  }
-}
-</script>
+    <!-- Interfaz de Usuario fija (UI) -->
+    <header class="ui-container">
+        <h1 class="brand-title">JOZART</h1>
+        <p class="brand-subtitle">Modelador 3D • Blender • Minecraft</p>
+        <a href="portfolio.html" class="btn-enter">Entrar al Portafolio</a>
+    </header>
 
+    <!-- ==========================================
+       2. LÓGICA DE CONTROL E INTERPOLACIÓN (JS)
+       ========================================== -->
+    <script>
+        // --- PARÁMETROS DEL PARALLAX ---
+        const PARALLAX_BG_INTENSITY = 25;  // Intensidad de movimiento fondo (mismo sentido)
+        const PARALLAX_FG_INTENSITY = -35; // Intensidad de movimiento frente (sentido opuesto)
+        const LERP_FACTOR = 0.08;          // Factor de suavizado (menor = más pesado/suave)
+
+        // --- SISTEMA DE NAVEGACIÓN INTELEGENTE DE BORDES ---
+        const EDGE_THRESHOLD = 0.08;       // Activa el cambio al tocar el 8% lateral de la pantalla
+        const HOLD_TIME_REQUIRED = 400;    // Tiempo de retención en el borde (ms) antes de cambiar
+        const DEBOUNCE_COOLDOWN = 1200;    // Tiempo muerto entre transiciones (ms)
+
+        // Definición matemática del orden del riel
+        const SCENE_ORDER = ['r3', 'r1', 'r2']; 
+        let currentSceneIndex = 1; // Posición de inicio en el DOM (r1 = Índice 1)
+
+        // --- VARIABLES DE ESTADO ---
+        const mouse = { x: 0, y: 0 };
+        const targetMouse = { x: 0, y: 0 };
+        const camera = { targetX: 0, currentX: 0 };
+
+        let edgeTimer = null;
+        let isCooldown = false;
+        let currentDirection = null;
+
+        // --- SELECTORES ---
+        const cameraTrack = document.getElementById('camera-track');
+        const scenes = document.querySelectorAll('.scene');
+
+        // Inicializar el centrado por defecto en r1
+        function initCamera() {
+            camera.targetX = -currentSceneIndex * window.innerWidth;
+            camera.currentX = camera.targetX;
+            cameraTrack.style.transform = `translate3d(${camera.currentX}px, 0px, 0px)`;
+        }
+
+        // Recalcular posiciones si el usuario cambia el tamaño del navegador
+        window.addEventListener('resize', () => {
+            camera.targetX = -currentSceneIndex * window.innerWidth;
+        });
+
+        // Capturar movimiento del ratón y mapear límites
+        window.addEventListener('mousemove', (e) => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            // Normalización al rango [-1, 1]
+            targetMouse.x = (e.clientX / width) * 2 - 1;
+            targetMouse.y = (e.clientY / height) * 2 - 1;
+
+            checkScreenEdges(e.clientX, width);
+        });
+
+        // Analizador de bordes
+        function checkScreenEdges(mouseX, screenWidth) {
+            if (isCooldown) return;
+
+            const leftZone = screenWidth * EDGE_THRESHOLD;
+            const rightZone = screenWidth * (1 - EDGE_THRESHOLD);
+
+            if (mouseX <= leftZone) {
+                startEdgeTimer('left');
+            } else if (mouseX >= rightZone) {
+                startEdgeTimer('right');
+            } else {
+                clearEdgeTimer();
+            }
+        }
+
+        function startEdgeTimer(direction) {
+            if (currentDirection === direction) return;
+            
+            clearEdgeTimer();
+            currentDirection = direction;
+
+            edgeTimer = setTimeout(() => {
+                navigateScene(direction);
+            }, HOLD_TIME_REQUIRED);
+        }
+
+        function clearEdgeTimer() {
+            if (edgeTimer) {
+                clearTimeout(edgeTimer);
+                edgeTimer = null;
+            }
+            currentDirection = null;
+        }
+
+        // Desplazamiento lógico de la cámara
+        function navigateScene(direction) {
+            let targetIndex = currentSceneIndex;
+
+            if (direction === 'left' && currentSceneIndex > 0) {
+                targetIndex--;
+            } else if (direction === 'right' && currentSceneIndex < SCENE_ORDER.length - 1) {
+                targetIndex++;
+            }
+
+            if (targetIndex !== currentSceneIndex) {
+                currentSceneIndex = targetIndex;
+                isCooldown = true;
+                clearEdgeTimer();
+
+                // Bloqueo temporal para dar estabilidad visual a la transición
+                setTimeout(() => {
+                    isCooldown = false;
+                }, DEBOUNCE_COOLDOWN);
+            }
+        }
+
+        // Bucle Principal de Animación (60fps por GPU Hardware)
+        function animate() {
+            // Suavizado del mouse con Lerp
+            mouse.x += (targetMouse.x - mouse.x) * LERP_FACTOR;
+            mouse.y += (targetMouse.y - mouse.y) * LERP_FACTOR;
+
+            // Suavizado del riel de la cámara con Lerp
+            camera.targetX = -currentSceneIndex * window.innerWidth;
+            camera.currentX += (camera.targetX - camera.currentX) * LERP_FACTOR;
+            
+            cameraTrack.style.transform = `translate3d(${camera.currentX}px, 0px, 0px)`;
+
+            // Renderizar Parallax independiente por cada capa en pantalla
+            scenes.forEach((scene) => {
+                const bgLayer = scene.querySelector('.layer-bg');
+                const fgLayer = scene.querySelector('.layer-fg');
+
+                if (bgLayer && fgLayer) {
+                    // Fondo (Misma dirección)
+                    const bgX = mouse.x * PARALLAX_BG_INTENSITY;
+                    const bgY = mouse.y * PARALLAX_BG_INTENSITY;
+                    bgLayer.style.transform = `translate3d(${bgX}px, ${bgY}px, 0px)`;
+
+                    // Frente (Dirección inversa)
+                    const fgX = mouse.x * PARALLAX_FG_INTENSITY;
+                    const fgY = mouse.y * PARALLAX_FG_INTENSITY;
+                    fgLayer.style.transform = `translate3d(${fgX}px, ${fgY}px, 0px)`;
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Encendido del motor
+        initCamera();
+        requestAnimationFrame(animate);
+    </script>
 </body>
 </html>
