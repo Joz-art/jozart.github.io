@@ -2,406 +2,681 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Mis Renders</title>
+<title>Mis Renders | Work Showcase</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.png" type="image/png">
-
+<link rel="icon" href="favicon.png" type="image/png">
 
 <style>
+/* ===== VARIABLES DE COLOR PROFESIONALES Y LIMPIAS ===== */
+:root {
+    --bg-main: #0b0f19;
+    --bg-card: #171e2e;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --accent: #64748b;
+    --accent-hover: #475569;
+    --shadow: rgba(59, 130, 246, 0.15);
+    --border: rgba(255, 255, 255, 0.05);
+    --bg-hero: #f1ebd9; /* Tono arena premium de la referencia */
+    --text-hero: #0f172a;
+}
 
-/* ===== COLORES ===== */
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#0f0f14;
-    color:white;
-    text-align:center;
+body.light {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #cbd5e1;
+    --accent-hover: #94a3b8;
+    --shadow: rgba(0, 0, 0, 0.05);
+    --border: rgba(0, 0, 0, 0.06);
+    --bg-hero: #e2e8f0;
+    --text-hero: #0f172a;
+}
+
+/* ===== ESTILOS GENERALES ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+    text-align: center;
     transition: background 0.3s, color 0.3s;
-}
-body.light{
-    background:#f0f0f0;
-    color:#111;
+    line-height: 1.6;
 }
 
-header{padding:30px; position:relative;}
-header h1{margin:0;font-size:2.5em}
-header p{color:#aaa}
-body.light header p{color:#555;}
-
-.socials a{
-    display:inline-block;
-    margin:10px;
-    padding:10px 18px;
-    background:#1f1f2e;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    transition:.2s;
-}
-.socials a:hover{background:#6c63ff;}
-body.light .socials a{
-    background:#ddd;
-    color:#111;
-}
-body.light .socials a:hover{background:#6c63ff;}
-
-/* ===== BOTON MODO OSCURO ===== */
-#dark-mode-btn{
-    position:absolute;
-    top:15px;
-    right:15px;
-    padding:10px 15px;
-    background:#6c63ff;
-    color:white;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-}
-body.light #dark-mode-btn{
-    background:#111;
-    color:white;
+/* ===== SECCIÓN HERO PORTAFOLIO (NUEVO) ===== */
+.hero-wrapper {
+    width: 100%;
+    background: var(--bg-hero);
+    color: var(--text-hero);
+    padding: 40px 20px;
+    box-sizing: border-box;
+    border-bottom: 4px solid var(--text-hero);
+    animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: top center;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    position: relative;
+    z-index: 100;
 }
 
-/* ===== FILTROS ===== */
-#filters{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:15px;
-    flex-wrap:wrap;
-}
-#filters button{
-    padding:8px 16px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:#6c63ff;
-    color:white;
-    transition:.2s;
-}
-#filters button:hover{
-    background:#22c55e;
-}
-#filters button.active{
-    background:#22c55e;
+.hero-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    text-align: left;
 }
 
-/* ===== ESTADISTICAS ===== */
-#stats{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
-    margin:20px 0;
-}
-.stat{
-    background:#1f1f2e;
-    padding:15px 20px;
-    border-radius:15px;
-    font-weight:bold;
-}
-body.light .stat{
-    background:#ddd;
-    color:#111;
+.hero-main-box {
+    grid-column: span 2;
+    background: rgba(255, 255, 255, 0.4);
+    border: 3px solid var(--text-hero);
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 }
 
-/* ===== GALERIA ===== */
-.section-title{
-    margin-top:40px;
-    color:#ddd;
-}
-body.light .section-title{color:#333;}
-
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
-    padding:20px;
-}
-.gallery img{
-    width:100%;
-    border-radius:15px;
-    cursor:pointer;
-    loading: lazy;
+.hero-info h1 {
+    font-size: 3.5em;
+    margin: 0;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1;
+    border-bottom: 4px solid #c084fc; /* Detalle de color elegante */
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
-footer{padding:20px;color:#666;}
-body.light footer{color:#333;}
+.hero-info h2 {
+    font-size: 1.8em;
+    margin: 15px 0 5px;
+    font-weight: 700;
+}
+
+.hero-info p {
+    font-size: 1.05em;
+    margin: 10px 0 0;
+    opacity: 0.9;
+}
+
+.hero-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 24px;
+    object-fit: cover;
+    border: 3px solid var(--text-hero);
+}
+
+.hero-sub-box {
+    background: rgba(255, 255, 255, 0.3);
+    border: 3px solid var(--text-hero);
+    padding: 25px;
+}
+
+.hero-sub-box h3 {
+    margin-top: 0;
+    font-size: 1.6em;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+.hero-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hero-link-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-hero);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05em;
+    transition: transform 0.2s, color 0.2s;
+    padding: 4px 0;
+}
+
+.hero-link-item:hover {
+    transform: translateX(5px);
+    color: var(--primary);
+}
+
+@keyframes slideDown {
+    from { transform: scaleY(0); opacity: 0; }
+    to { transform: scaleY(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .hero-container { grid-template-columns: 1fr; }
+    .hero-main-box { grid-column: span 1; flex-direction: column-reverse; text-align: center; padding: 20px; }
+    .hero-avatar { width: 140px; height: 140px; }
+    .hero-info h1 { font-size: 2.8em; }
+}
+
+/* ===== SPINNER LOADING SYSTEM (NUEVO) ===== */
+.img-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Mantiene proporciones consistentes previniendo saltos de pantalla */
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.gallery .img-container {
+    height: 100%;
+}
+
+.img-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+/* El círculo giratorio */
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+body.light .spinner {
+    border-color: rgba(0,0,0,0.06);
+    border-top-color: var(--primary);
+}
+
+.gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: 0; /* Oculto por defecto hasta cargar al 100% */
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, opacity 0.4s ease;
+}
+
+.gallery img.loaded {
+    opacity: 1;
+}
+
+.gallery img.loaded:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== ESTILOS EXISTENTES OPTIMIZADOS ===== */
+header {
+    padding: 60px 20px 40px;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header h1 {
+    margin: 10px 0 5px;
+    font-size: 2.6em;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 1.05em;
+    margin-bottom: 25px;
+}
+
+.logo {
+    width: 110px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px var(--shadow);
+    transition: transform 0.3s ease;
+}
+.logo:hover { transform: scale(1.03); }
+
+.footer-logo {
+    width: 60px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    opacity: .8;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.socials a {
+    padding: 10px 20px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9em;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+.socials a:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+#dark-mode-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    padding: 12px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+#dark-mode-btn:hover {
+    transform: scale(1.08);
+    background: var(--primary);
+    color: white;
+}
+
+#filters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+#filters button {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--bg-card);
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+#filters button:hover, #filters button.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+#stats {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    max-width: 1000px;
+    padding: 0 20px;
+}
+.stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.process-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 5px;
+}
+.process-container .img-container {
+    width: 420px;
+    max-width: 90%;
+    aspect-ratio: auto;
+}
+
+.section-title {
+    margin: 50px 0 20px;
+    font-size: 1.6em;
+    font-weight: 700;
+    text-align: left;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 25px;
+    letter-spacing: -0.3px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 0 25px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
 
 /* ===== MODAL ===== */
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.85);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 15, 25, 0.96);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 20px;
+    backdrop-filter: blur(4px);
 }
-.modal-content{
-    background:#151520;
-    border-radius:20px;
-    max-width:900px;
-    width:95%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:15px;
-    padding:20px;
-    position:relative;
-    max-height:90vh;
-    overflow:hidden;
-    transition: background 0.3s, color 0.3s;
+.modal-content {
+    background: #141b2b;
+    color: #f8fafc;
+    border-radius: 20px;
+    max-width: 950px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 25px;
+    padding: 25px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.05);
 }
-body.light .modal-content{ background:#f9f9f9; color:#111; }
+body.light .modal-content {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid rgba(0,0,0,0.05);
+}
 
-.modal-left{
-    position:relative;
-    flex:1;
-    width:100%;
-    display:flex;
-    justify-content:center;
+.modal-left {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.15);
+    border-radius: 12px;
+    overflow: hidden;
 }
-.modal-left img{
-    width:auto;
-    max-width:100%;
-    max-height:70vh;
-    border-radius:15px;
-    object-fit:contain;
+.modal-left img {
+    max-width: 100%;
+    max-height: 55vh;
+    border-radius: 8px;
+    object-fit: contain;
 }
-.zoom-lens{
-    position:absolute;
-    width:120px;
-    height:120px;
-    border:2px solid #6c63ff;
-    display:none;
-    pointer-events:none;
-    background-repeat:no-repeat;
-    border-radius:10px;
+
+.zoom-lens {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border: 2px solid var(--primary);
+    display: none;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    border-radius: 12px;
 }
-.modal-right{
-    flex:0;
-    width:100%;
-    margin-top:10px;
-    text-align:left;
+
+.modal-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    padding: 10px;
 }
-.back-btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:10px 18px;
-    background:#22c55e;
-    color:black;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
+.modal-right h2 { margin-top: 0; font-size: 1.5em; letter-spacing: -0.3px; }
+#modal-desc { color: var(--text-muted); font-size: 1em; margin-bottom: 20px; }
+
+.back-btn {
+    align-self: flex-start;
+    padding: 10px 18px;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+    font-size: 0.9em;
 }
-/* ===== PROGRESO MODAL ===== */
-#progress-bar{
-    width:100%;
-    height:8px;
-    background:#333;
-    border-radius:4px;
-    margin-top:10px;
+.back-btn:hover { background: var(--primary-hover); }
+
+#progress-bar {
+    width: 100%;
+    height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    margin-top: 20px;
 }
-#progress{
-    height:100%;
-    background:#6c63ff;
-    width:0%;
-    border-radius:4px;
+body.light #progress-bar { background: rgba(0,0,0,0.08); }
+
+#progress {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    border-radius: 3px;
     transition: width .3s;
 }
+.counter { margin-top: 8px; font-size: 0.85em; color: var(--text-muted); }
 
-/* ===== FLECHAS ===== */
+.modal-thumbnails {
+    grid-column: span 2;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 5px 0;
+    justify-content: center;
+}
+.modal-thumbnails img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.2s;
+    opacity: 0.5;
+}
+.modal-thumbnails img.active, .modal-thumbnails img:hover {
+    border-color: var(--primary);
+    opacity: 1;
+}
+
 .modal-arrow {
     position: absolute;
-    top: 50%;
+    top: 42%;
     transform: translateY(-50%);
-    font-size: 3em;
+    font-size: 2.2em;
     color: white;
     cursor: pointer;
     user-select: none;
-    padding: 10px;
-    background: rgba(0,0,0,0.3);
+    padding: 4px 14px;
+    background: rgba(0,0,0,0.4);
     border-radius: 50%;
     transition: background .2s;
+    z-index: 10;
 }
-.modal-arrow:hover { background: rgba(0,0,0,0.6); }
-.modal-arrow.left { left: 10px; }
-.modal-arrow.right { right: 10px; }
+.modal-arrow:hover { background: var(--primary); }
+.modal-arrow.left { left: 15px; }
+.modal-arrow.right { right: 15px; }
 
-/* ===== MINIATURAS MODAL ===== */
-.modal-thumbnails{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    margin-top:10px;
-    padding-bottom:5px;
-    width:100%;
-    justify-content:center;
-}
-.modal-thumbnails img{
-    width:60px;
-    height:60px;
-    object-fit:cover;
-    border-radius:10px;
-    cursor:pointer;
-    border:2px solid transparent;
-    transition:.2s;
-}
-.modal-thumbnails img.active{
-    border-color:#6c63ff;
+@media (max-width: 768px) {
+    .modal-content { grid-template-columns: 1fr; padding: 15px; }
+    .modal-thumbnails { grid-column: span 1; }
+    .modal-arrow { top: 30%; }
 }
 
-.counter{
-    margin-top:5px;
-    color:#aaa;
+/* ===== COMENTARIOS ===== */
+#comentarios {
+    padding: 60px 20px;
+    max-width: 750px;
+    margin: auto;
 }
-body.light .counter{ color:#555; }
-#comentarios{
-    padding:30px;
-    max-width:700px;
-    margin:auto;
+#chat-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: fadeUp .3s ease forwards;
+    text-align: left;
+}
+.message img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.bubble-container { flex: 1; }
+.bubble {
+    display: inline-block;
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 4px 12px 12px 12px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.95em;
+}
+body.light .bubble { background: #e2e8f0; color: #0f172a; }
 
-#chat-box{
-    background:#1f1f2e;
-    border-radius:15px;
-    padding:15px;
-    height:300px;
-    overflow-y:auto;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+.name { font-size: 0.8em; font-weight: 700; margin-bottom: 3px; color: var(--text-main); opacity: 0.8; }
+.actions { font-size: 11px; margin-top: 4px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.actions button {
+    border: 1px solid var(--border);
+    background: var(--bg-main);
+    color: var(--text-main);
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px 6px;
+    transition: background 0.2s;
 }
+.actions button:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
-body.light #chat-box{
-    background:#ddd;
+.chat-input {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
 }
+.chat-input textarea {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-main);
+    resize: none;
+    height: 22px;
+    font-family: inherit;
+}
+.chat-input button {
+    padding: 0 22px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.chat-input button:hover { background: var(--primary-hover); }
 
-.message{
-    display:flex;
-    align-items:flex-end;
-    gap:10px;
-}
-
-.message img{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    object-fit:cover;
-}
-
-.bubble{
-    max-width:70%;
-    padding:10px 15px;
-    border-radius:15px;
-    background:#6c63ff;
-    color:white;
-    text-align:left;
-}
-
-.name{
-    font-size:0.8em;
-    opacity:0.7;
-}
-
-.chat-input{
-    margin-top:15px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.chat-input textarea{
-    padding:10px;
-    border-radius:10px;
-    border:none;
-}
-
-.chat-input button{
-    padding:10px;
-    border:none;
-    border-radius:10px;
-    background:#22c55e;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* ===== PROCESS GIF ===== */
-.process-container{
-    display:flex;
-    justify-content:center;
-    margin:20px 0 40px;
-}
-
-.process-container img{
-    width:350px;
-    max-width:90%;
-    border-radius:15px;
-}
-
-/* ===== MEJORAS CHAT ===== */
-#chat-box{
-    scroll-behavior:smooth;
-}
-
-.message{
-    animation:fadeUp .3s ease;
-}
-
-.actions{
-    font-size:12px;
-    margin-top:5px;
-}
-
-.actions button{
-    border:none;
-    background:#22c55e;
-    margin-left:5px;
-    border-radius:5px;
-    cursor:pointer;
-    padding:2px 6px;
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;transform:translateY(0);}
-}
-.logo{
-    width:120px;
-    margin-bottom:10px;
-    border-radius:20px;
-    box-shadow:0 0 25px rgba(108,99,255,.5);
-    transition:.3s;
-}
-
-.logo:hover{
-    transform:scale(1.05);
-}
-.footer-logo{
-    width:70px;
-    border-radius:15px;
-    margin-bottom:10px;
-    opacity:.9;
+footer {
+    padding: 40px 20px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    font-size: 0.9em;
 }
 </style>
 </head>
 <body>
 
-<header>
+<!-- SECCIÓN PORTAFOLIO INTERACTIVA HERO (Añadida según tu referencia) -->
+<div class="hero-wrapper" id="heroPortafolio">
+    <div class="hero-container">
+        <div class="hero-main-box">
+            <div class="hero-info">
+                <h1>JOZART</h1>
+                <h2>Renderista de Minecraft</h2>
+                <p><strong>(ARTISTA EN CRECIMIENTO)</strong></p>
+                <p>Modelos, escenas y renders personalizados para videos, proyectos y miniaturas de Minecraft. Cada creación está hecha con detalle, iluminación cuidada y estilo propio.</p>
+            </div>
+            <!-- Usa tu logo o render preferido como avatar principal -->
+            <img src="favicon.png" class="hero-avatar" alt="Jozart Avatar">
+        </div>
+        
+        <div class="hero-sub-box">
+            <h3>SOBRE MÍ</h3>
+            <p>Soy Jozart, un creador apasionado por el diseño visual en Minecraft. Me encanta experimentar con luces, cámaras y escenas para dar vida a cada idea.</p>
+        </div>
 
-<img src="favicon.png" class="logo">
-
-<h1>WORK SHOWCASE</h1>
-<p>Blender · Minecraft · Arte 3D</p>
-<button id="dark-mode-btn">🌙</button>
-<div class="socials">
-<a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
-<a href="https://www.youtube.com/@Jozart_x" target="_blank">YouTube</a>
-<a href="https://www.tiktok.com/@jozart.0" target="_blank">Tiktok</a>
-<a href="https://mail.google.com/mail/?view=cm&to=josephjuega972@gmail.com="_blank">Gmail</a>
+        <div class="hero-sub-box">
+            <h3>CONTACTO</h3>
+            <p style="margin-top: 0; font-size: 0.9em; opacity: 0.85;">¿Quieres una miniatura o render personalizado? ¡Hablemos y creamos algo increíble juntos! Rápido, económico y con estilo.</p>
+            <div class="hero-links-list">
+                <a href="https://wa.me/573003781417" target="_blank" class="hero-link-item">📞 3003781417</a>
+                <a href="https://www.youtube.com/@Jozart_x" target="_blank" class="hero-link-item">▶️ JOZART_X</a>
+                <a href="https://www.instagram.com/jozart.art/" target="_blank" class="hero-link-item">📸 JOZART.ART</a>
+                <a href="https://discord.com" target="_blank" class="hero-link-item">💬 JOZARTAT</a>
+                <a href="https://mail.google.com/mail/?view=cm&to=josephjuega972@gmail.com" target="_blank" class="hero-link-item">✉️ JOSEPHJUGEA972@GMAIL.COM</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<header>
+    <img src="favicon.png" class="logo" alt="Logo">
+    <h1>WORK SHOWCASE</h1>
+    <p>Blender · Minecraft · Arte 3D</p>
+    <button id="dark-mode-btn" title="Cambiar modo">🌙</button>
+    
+    <div class="socials">
+        <a href="https://www.instagram.com/jozart.art/" target="_blank">Instagram</a>
+        <a href="https://www.youtube.com/@Jozart_x" target="_blank">YouTube</a>
+        <a href="https://www.tiktok.com/@jozart.0" target="_blank">TikTok</a>
+        <a href="https://mail.google.com/mail/?view=cm&to=josephjuega972@gmail.com" target="_blank">Gmail</a>
+    </div>
 </header>
 
 <!-- ESTADISTICAS -->
@@ -409,6 +684,8 @@ to{opacity:1;transform:translateY(0);}
     <div class="stat">+70 Miniaturas/Renders</div>
     <div class="stat">+5 Clientes</div>
     <div class="stat">+3 Años Creando</div>
+    <div class="stat" id="user-profile">👤 Anónimo</div>
+    <div class="stat" id="views">👀 Visitas: 0</div>
     <div class="stat">Aprendiendo y creciendo cada día 💪</div>
 </div>
 
@@ -420,64 +697,136 @@ to{opacity:1;transform:translateY(0);}
     <button class="filter-btn" data-filter="miniaturas">🎬 Miniaturas</button>
     <button class="filter-btn" data-filter="especiales">🔥 Especiales</button>
 </div>
-<!-- PROCESS -->
-<h2 class="section-title">PROCESO DE CREACIÓN</h2>
 
+<!-- PROCESS -->
+<h2 class="section-title" style="text-align: center;">PROCESO DE CREACIÓN</h2>
 <div class="process-container">
-    <img src="process.gif" alt="Proceso de creación" loading="lazy">
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="process.gif" alt="Proceso de creación" onload="handleImageLoad(this)">
+    </div>
 </div>
 
 <!-- INVITACIONES -->
 <h2 class="section-title">🏆 Invitaciones</h2>
 <section class="gallery" data-category="invitaciones">
-<img src="participante 1.png" data-desc="Invitación · Render Minecraft" loading="lazy">
-<img src="participante 4.png" data-desc="Invitación · Render Minecraft" loading="lazy">
-<img src="participante 7.png" data-desc="Invitación · Render Minecraft" loading="lazy">
-<img src="participante 8.png" data-desc="Invitación · Render Minecraft" loading="lazy">
-<img src="Jugador 6a Legend.png" data-desc="Invitación . Render Minecraft" loading="lazy">
-<img src="Jugador 6a SoyMisack.png" data-desc="Invitación . Render Minecraft" loading="lazy">
-<img src="Jugador 6a SoygabiGamer.png" data-desc="Invitación . Render Minecraft" loading="lazy">
-<img src="Jugador 6a JUEGAMEMO.png" data-desc="Invitación . Render Minecraft" loading="lazy">
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="participante 1.png" data-desc="Invitación · Render Minecraft" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="participante 4.png" data-desc="Invitación · Render Minecraft" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="participante 7.png" data-desc="Invitación · Render Minecraft" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="participante 8.png" data-desc="Invitación · Render Minecraft" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Jugador 6a Legend.png" data-desc="Invitación . Render Minecraft" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Jugador 6a SoyMisack.png" data-desc="Invitación . Render Minecraft" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Jugador 6a SoygabiGamer.png" data-desc="Invitación . Render Minecraft" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Jugador 6a JUEGAMEMO.png" data-desc="Invitación . Render Minecraft" onload="handleImageLoad(this)">
+    </div>
 </section>
 
 <!-- JUGADORES -->
 <h2 class="section-title">🎮 Jugadores</h2>
 <section class="gallery" data-category="jugadores">
-<img src="Jugador 2..png" data-desc="Render Invitacion jugador a Evento" loading="lazy">
-<img src="Jugador 4..png" data-desc="Render Invitacion jugador a Evento" loading="lazy">
-<img src="Jugador 11..png" data-desc="Render Invitacion jugador a Evento" loading="lazy">
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Jugador 2..png" data-desc="Render Invitacion jugador a Evento" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Jugador 4..png" data-desc="Render Invitacion jugador a Evento" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Jugador 11..png" data-desc="Render Invitacion jugador a Evento" onload="handleImageLoad(this)">
+    </div>
 </section>
 
 <!-- MINIATURAS -->
 <h2 class="section-title">🎬 Miniaturas</h2>
 <section class="gallery" data-category="miniaturas">
-<img src="jospeh detective miniatura.png" data-desc="Miniatura YouTube Murder Mystery" loading="lazy">
-<img src="peak mini final.png" data-desc="Miniatura de Peak en Mc" loading="lazy">
-<img src="peak wsa final.png" data-desc="Miniatura Peak en Mc" loading="lazy">
-<img src="fuega cubecraft detalles.png" data-desc="Miniatura Para creador de contenido" loading="lazy">
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="jospeh detective miniatura.png" data-desc="Miniatura YouTube Murder Mystery" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="peak mini final.png" data-desc="Miniatura de Peak en Mc" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="peak wsa final.png" data-desc="Miniatura Peak en Mc" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="fuega cubecraft detalles.png" data-desc="Miniatura Para creador de contenido" onload="handleImageLoad(this)">
+    </div>
 </section>
 
 <!-- ESPECIALES -->
 <h2 class="section-title">🔥 Especiales</h2>
 <section class="gallery" data-category="especiales">
-<img src="tuenyyy f.png" data-desc="Render especial" loading="lazy">
-<img src="tuenista f.png" data-desc="Render especial" loading="lazy">
-<img src="wazvii encadenado lus mas intensa.png" data-desc="Render cinemático encadenado" loading="lazy">
-<img src="JOSEPH elite gold.png" data-desc="Render Amistoso" loading="lazy">
-<img src="TODOS JOSEPH  noche.png" data-desc="Render del verse Joseph" loading="lazy">
-<img src="TODOS JOSEPH dia.png" data-desc="Render del Verse Joseph" loading="lazy">
-<img src="Poppy Roblox Mini.png" data-desc="Mini Para video de Poppy en Roblox" loading="lazy">
-<img src="BANNER JOZART NUEVO RENOVADO.png" data-desc="Banner Del Canal Jozart Oficial" loading="lazy">
-<img src="joseph x pst-Recuperado.png" data-desc="Colab Con PST STUDIOS" loading="lazy">
-
-
-
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="tuenyyy f.png" data-desc="Render especial" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="tuenista f.png" data-desc="Render especial" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="wazvii encadenado lus mas intensa.png" data-desc="Render cinemático encadenado" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="JOSEPH elite gold.png" data-desc="Render Amistoso" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="TODOS JOSEPH  noche.png" data-desc="Render del verse Joseph" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="TODOS JOSEPH dia.png" data-desc="Render del Verse Joseph" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="Poppy Roblox Mini.png" data-desc="Mini Para video de Poppy en Roblox" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="BANNER JOZART NUEVO RENOVADO.png" data-desc="Banner Del Canal Jozart Oficial" onload="handleImageLoad(this)">
+    </div>
+    <div class="img-container">
+        <div class="img-loader"><div class="spinner"></div></div>
+        <img src="joseph x pst-Recuperado.png" data-desc="Colab Con PST STUDIOS" onload="handleImageLoad(this)">
+    </div>
 </section>
+
+<!-- COMENTARIOS -->
 <section id="comentarios">
     <h2>💬 Comentarios</h2>
-
     <div id="chat-box"></div>
-
     <div class="chat-input">
         <textarea id="message" placeholder="Escribe tu comentario..."></textarea>
         <button onclick="sendMessage()">Enviar</button>
@@ -485,36 +834,63 @@ to{opacity:1;transform:translateY(0);}
 </section>
 
 <footer>
-
-<img src="favicon.png" class="footer-logo">
-
-<p>© 2026 · Jozart 😎</p>
-
+    <img src="favicon.png" class="footer-logo" alt="Footer Logo">
+    <p>© 2026 · Jozart 😎</p>
 </footer>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-<div class="modal-content">
-    <div class="modal-left">
-        <img id="modal-img">
-        <div class="zoom-lens" id="lens"></div>
-    </div>
-    <div class="modal-right">
-        <h2>Descripción</h2>
-        <p id="modal-desc"></p>
-        <div class="back-btn" onclick="closeModal()">⬅ Atrás</div>
-        <div class="counter" id="modal-counter"></div>
-        <div id="progress-bar"><div id="progress"></div></div>
-    </div>
+    <div class="modal-content">
+        <div class="modal-left">
+            <img id="modal-img" alt="Render ampliado">
+            <div class="zoom-lens" id="lens"></div>
+        </div>
+        <div class="modal-right">
+            <h2>Descripción</h2>
+            <p id="modal-desc"></p>
+            <div class="back-btn" onclick="closeModal()">⬅ Atrás</div>
+            <div class="counter" id="modal-counter"></div>
+            <div id="progress-bar"><div id="progress"></div></div>
+        </div>
 
-    <div class="modal-thumbnails" id="modal-thumbnails"></div>
+        <div class="modal-thumbnails" id="modal-thumbnails"></div>
 
-    <div class="modal-arrow left" onclick="prevImage()">&#10094;</div>
-    <div class="modal-arrow right" onclick="nextImage()">&#10095;</div>
-</div>
+        <div class="modal-arrow left" onclick="prevImage()">&#10094;</div>
+        <div class="modal-arrow right" onclick="nextImage()">&#10095;</div>
+    </div>
 </div>
 
 <script>
+/* ===== EFECTO DE CONTROL DE SCROLL EN PORTAFOLIO (NUEVO) ===== */
+const heroPortafolio = document.getElementById("heroPortafolio");
+window.addEventListener("scroll", () => {
+    let value = window.scrollY;
+    // Conforme baja el usuario disminuye la opacidad y se repliega hacia arriba de manera controlada
+    if (value < 400) {
+        heroPortafolio.style.opacity = 1 - value / 400;
+        heroPortafolio.style.transform = `scaleY(${1 - value / 1200}) translateY(-${value * 0.2}px)`;
+        heroPortafolio.style.display = "block";
+    } else {
+        heroPortafolio.style.display = "none";
+    }
+});
+
+/* ===== MANEJADOR DE CARGA DE IMÁGENES (NUEVO) ===== */
+function handleImageLoad(img) {
+    // Al finalizar la descarga total, removemos el loader y animamos la imagen
+    const loader = img.previousElementSibling;
+    if (loader && loader.classList.contains('img-loader')) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 300);
+    }
+    img.classList.add('loaded');
+}
+
+// Comprobación de seguridad por si alguna imagen ya cargó de caché antes del evento onload
+document.querySelectorAll(".gallery img, .process-container img").forEach(img => {
+    if (img.complete) handleImageLoad(img);
+});
+
 /* ===== FILTROS ===== */
 const filterButtons = document.querySelectorAll(".filter-btn");
 const galleries = document.querySelectorAll(".gallery");
@@ -528,10 +904,10 @@ filterButtons.forEach(btn=>{
         galleries.forEach(section=>{
             if(filter === "all" || section.dataset.category===filter){
                 section.style.display="grid";
-                section.previousElementSibling.style.display="block"; // h2
+                if(section.previousElementSibling) section.previousElementSibling.style.display="block"; 
             } else{
                 section.style.display="none";
-                section.previousElementSibling.style.display="none";
+                if(section.previousElementSibling) section.previousElementSibling.style.display="none";
             }
         });
     });
@@ -557,18 +933,20 @@ const zoom = 2;
 let allImages = Array.from(document.querySelectorAll(".gallery img"));
 let currentIndex = 0;
 
-// Filtrar miniaturas por categoría
 function getCategoryImages(){
-    const cat = allImages[currentIndex].closest(".gallery").dataset.category;
+    const currentImg = allImages[currentIndex];
+    if(!currentImg) return [];
+    const cat = currentImg.closest(".gallery").dataset.category;
     return Array.from(document.querySelectorAll(`.gallery[data-category='${cat}'] img`));
 }
 
 function createThumbnails(){
     modalThumbnails.innerHTML = "";
     const catImages = getCategoryImages();
-    catImages.forEach((img,i)=>{
-        const thumb = img.cloneNode();
-        thumb.classList.toggle("active", img===allImages[currentIndex]);
+    catImages.forEach((img)=>{
+        const thumb = document.createElement("img");
+        thumb.src = img.src;
+        thumb.classList.toggle("active", img === allImages[currentIndex]);
         thumb.onclick = () => {
             currentIndex = allImages.indexOf(img);
             openModal(currentIndex);
@@ -580,10 +958,11 @@ function createThumbnails(){
 function openModal(index){
     currentIndex = index;
     const img = allImages[currentIndex];
+    if(!img) return;
     modal.style.display = "flex";
     modalImg.src = img.src;
-    modalDesc.textContent = img.dataset.desc;
-    lens.style.backgroundImage = `url(${img.src})`;
+    modalDesc.textContent = img.dataset.desc || "Sin descripción.";
+    lens.style.backgroundImage = `url('${img.src}')`;
     const catImages = getCategoryImages();
     modalCounter.textContent = `Render ${catImages.indexOf(img)+1} de ${catImages.length}`;
     progressBar.style.width = ((catImages.indexOf(img)+1)/catImages.length*100) + "%";
@@ -619,7 +998,7 @@ modalImg.onmouseleave = () => lens.style.display = "none";
 function prevImage(){
     const catImages = getCategoryImages();
     let idx = catImages.indexOf(allImages[currentIndex]);
-    idx = (idx -1 + catImages.length) % catImages.length;
+    idx = (idx - 1 + catImages.length) % catImages.length;
     currentIndex = allImages.indexOf(catImages[idx]);
     openModal(currentIndex);
 }
@@ -627,7 +1006,7 @@ function prevImage(){
 function nextImage(){
     const catImages = getCategoryImages();
     let idx = catImages.indexOf(allImages[currentIndex]);
-    idx = (idx +1) % catImages.length;
+    idx = (idx + 1) % catImages.length;
     currentIndex = allImages.indexOf(catImages[idx]);
     openModal(currentIndex);
 }
@@ -637,15 +1016,15 @@ function closeModal(){ modal.style.display="none"; }
 document.addEventListener("keydown", e => {
     if(e.key==="Escape") closeModal();
 });
+
+/* ===== COMENTARIOS ===== */
 const chatBox = document.getElementById("chat-box");
 
 function loadMessages(){
     const messages = JSON.parse(localStorage.getItem("comments") || "[]");
-
-    chatBox.innerHTML = messages.length === 0
-    ? "<p style='opacity:0.6'>No hay comentarios aún 😎</p>"
-    : "";
-
+    chatBox.innerHTML = messages.length === 0 
+        ? "<p style='opacity:0.6; padding: 20px;'>No hay comentarios aún 😎</p>" 
+        : "";
     messages.forEach((msg,i) => addMessage(msg,i));
 }
 
@@ -654,34 +1033,24 @@ function addMessage(msg, index){
     div.classList.add("message");
 
     div.innerHTML = `
-        <img src="${msg.avatar || 'https://i.imgur.com/4M34hi2.png'}">
-
-        <div>
+        <img src="${msg.avatar || 'https://i.imgur.com/4M34hi2.png'}" alt="Avatar">
+        <div class="bubble-container">
             <div class="name">${msg.name}</div>
-
             <div class="bubble">${msg.text}</div>
-
             <div class="actions">
                 ❤️ ${msg.likes || 0}
-
-                <button onclick="likeMessage(${index})">
-                    Like
-                </button>
-
-                <button onclick="deleteMessage(${index})">
-                    🗑️
-                </button>
+                <button onclick="likeMessage(${index})">Like</button>
+                <button onclick="deleteMessage(${index})">🗑️</button>
             </div>
         </div>
     `;
-
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function sendMessage(){
-    const text = document.getElementById("message").value;
-
+    const textEl = document.getElementById("message");
+    const text = textEl.value;
     const name = localStorage.getItem("profileName") || "Anónimo";
     const avatarSaved = localStorage.getItem("profileAvatar");
 
@@ -691,75 +1060,50 @@ function sendMessage(){
         name,
         text,
         avatar: avatarSaved,
-        likes:0
+        likes: 0
     };
 
     const messages = JSON.parse(localStorage.getItem("comments") || "[]");
-
     messages.push(msg);
-
     localStorage.setItem("comments", JSON.stringify(messages));
-
     loadMessages();
-
-    document.getElementById("message").value = "";
+    textEl.value = "";
 }
 
 function likeMessage(i){
     const messages = JSON.parse(localStorage.getItem("comments") || "[]");
-
     messages[i].likes = (messages[i].likes || 0) + 1;
-
     localStorage.setItem("comments", JSON.stringify(messages));
-
     loadMessages();
 }
 
 function deleteMessage(i){
     const messages = JSON.parse(localStorage.getItem("comments") || "[]");
-
     messages.splice(i,1);
-
     localStorage.setItem("comments", JSON.stringify(messages));
-
     loadMessages();
 }
-/* ===== PERFIL ===== */
+
+/* ===== PERFIL Y VISITAS ===== */
 const profileName = localStorage.getItem("profileName");
 const profileAvatar = localStorage.getItem("profileAvatar");
+const userProfileEl = document.getElementById("user-profile");
 
-if(profileName){
-document.getElementById("user-profile").innerHTML =
-`<img src="${profileAvatar}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;"> ${profileName}`;
+if(profileName && userProfileEl){
+    userProfileEl.innerHTML = `<img src="${profileAvatar || 'https://i.imgur.com/4M34hi2.png'}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;"> ${profileName}`;
 }
 
-/* ===== VISITAS ===== */
 let views = localStorage.getItem("views") || 0;
-
 views++;
-
 localStorage.setItem("views", views);
 
-document.getElementById("views").textContent =
-"👀 Visitas: " + views;
+const viewsEl = document.getElementById("views");
+if(viewsEl) {
+    viewsEl.textContent = "👀 Visitas: " + views;
+}
 
 loadMessages();
 </script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
