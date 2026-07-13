@@ -19,8 +19,6 @@
     --accent-hover: #475569;
     --shadow: rgba(59, 130, 246, 0.15);
     --border: rgba(255, 255, 255, 0.05);
-    --bg-hero: #f1ebd9; /* Tono arena premium de la referencia */
-    --text-hero: #0f172a;
 }
 
 body.light {
@@ -34,8 +32,6 @@ body.light {
     --accent-hover: #94a3b8;
     --shadow: rgba(0, 0, 0, 0.05);
     --border: rgba(0, 0, 0, 0.06);
-    --bg-hero: #e2e8f0;
-    --text-hero: #0f172a;
 }
 
 /* ===== ESTILOS GENERALES ===== */
@@ -49,184 +45,6 @@ body {
     line-height: 1.6;
 }
 
-/* ===== SECCIÓN HERO PORTAFOLIO (NUEVO) ===== */
-.hero-wrapper {
-    width: 100%;
-    background: var(--bg-hero);
-    color: var(--text-hero);
-    padding: 40px 20px;
-    box-sizing: border-box;
-    border-bottom: 4px solid var(--text-hero);
-    animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    transform-origin: top center;
-    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-    position: relative;
-    z-index: 100;
-}
-
-.hero-container {
-    max-width: 1050px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    text-align: left;
-}
-
-.hero-main-box {
-    grid-column: span 2;
-    background: rgba(255, 255, 255, 0.4);
-    border: 3px solid var(--text-hero);
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
-
-.hero-info h1 {
-    font-size: 3.5em;
-    margin: 0;
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1;
-    border-bottom: 4px solid #c084fc; /* Detalle de color elegante */
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-.hero-info h2 {
-    font-size: 1.8em;
-    margin: 15px 0 5px;
-    font-weight: 700;
-}
-
-.hero-info p {
-    font-size: 1.05em;
-    margin: 10px 0 0;
-    opacity: 0.9;
-}
-
-.hero-avatar {
-    width: 180px;
-    height: 180px;
-    border-radius: 24px;
-    object-fit: cover;
-    border: 3px solid var(--text-hero);
-}
-
-.hero-sub-box {
-    background: rgba(255, 255, 255, 0.3);
-    border: 3px solid var(--text-hero);
-    padding: 25px;
-}
-
-.hero-sub-box h3 {
-    margin-top: 0;
-    font-size: 1.6em;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-}
-
-.hero-links-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.hero-link-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-hero);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.05em;
-    transition: transform 0.2s, color 0.2s;
-    padding: 4px 0;
-}
-
-.hero-link-item:hover {
-    transform: translateX(5px);
-    color: var(--primary);
-}
-
-@keyframes slideDown {
-    from { transform: scaleY(0); opacity: 0; }
-    to { transform: scaleY(1); opacity: 1; }
-}
-
-@media (max-width: 768px) {
-    .hero-container { grid-template-columns: 1fr; }
-    .hero-main-box { grid-column: span 1; flex-direction: column-reverse; text-align: center; padding: 20px; }
-    .hero-avatar { width: 140px; height: 140px; }
-    .hero-info h1 { font-size: 2.8em; }
-}
-
-/* ===== SPINNER LOADING SYSTEM (NUEVO) ===== */
-.img-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9; /* Mantiene proporciones consistentes previniendo saltos de pantalla */
-    background: var(--bg-card);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.gallery .img-container {
-    height: 100%;
-}
-
-.img-loader {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-card);
-    z-index: 2;
-    transition: opacity 0.3s ease;
-}
-
-/* El círculo giratorio */
-.spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-body.light .spinner {
-    border-color: rgba(0,0,0,0.06);
-    border-top-color: var(--primary);
-}
-
-.gallery img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer;
-    opacity: 0; /* Oculto por defecto hasta cargar al 100% */
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, opacity 0.4s ease;
-}
-
-.gallery img.loaded {
-    opacity: 1;
-}
-
-.gallery img.loaded:hover {
-    transform: scale(1.02);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* ===== ESTILOS EXISTENTES OPTIMIZADOS ===== */
 header {
     padding: 60px 20px 40px;
     position: relative;
@@ -247,6 +65,7 @@ header p {
     margin-bottom: 25px;
 }
 
+/* ===== LOGOS Y REDES ===== */
 .logo {
     width: 110px;
     border-radius: 20px;
@@ -311,6 +130,7 @@ header p {
     color: white;
 }
 
+/* ===== FILTROS Y ESTADÍSTICAS ===== */
 #filters {
     display: flex;
     justify-content: center;
@@ -365,9 +185,9 @@ header p {
 .process-container .img-container {
     width: 420px;
     max-width: 90%;
-    aspect-ratio: auto;
 }
 
+/* ===== GALERÍA ADAPTABLE SEGÚN EL FORMATO (SOLUCIÓN) ===== */
 .section-title {
     margin: 50px 0 20px;
     font-size: 1.6em;
@@ -387,6 +207,67 @@ header p {
     padding: 0 25px;
     max-width: 1200px;
     margin: 0 auto 40px;
+    /* Alineación de cuadrícula masonry limpia */
+    grid-auto-flow: dense; 
+}
+
+/* Contenedor flexible que respeta el tamaño original de la imagen */
+.img-container {
+    position: relative;
+    width: 100%;
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+}
+
+.img-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    min-height: 200px; /* Altura mínima mientras carga */
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+body.light .spinner {
+    border-color: rgba(0,0,0,0.06);
+    border-top-color: var(--primary);
+}
+
+.gallery img, .process-container img {
+    width: 100%;
+    height: auto; /* Permite que el alto crezca de forma natural */
+    display: block;
+    object-fit: contain; /* Evita recortes forzados en miniaturas */
+    cursor: pointer;
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, opacity 0.4s ease;
+}
+
+.gallery img.loaded, .process-container img.loaded {
+    opacity: 1;
+}
+
+.gallery img.loaded:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 /* ===== MODAL ===== */
@@ -632,39 +513,6 @@ footer {
 </head>
 <body>
 
-<!-- SECCIÓN PORTAFOLIO INTERACTIVA HERO (Añadida según tu referencia) -->
-<div class="hero-wrapper" id="heroPortafolio">
-    <div class="hero-container">
-        <div class="hero-main-box">
-            <div class="hero-info">
-                <h1>JOZART</h1>
-                <h2>Renderista de Minecraft</h2>
-                <p><strong>(ARTISTA EN CRECIMIENTO)</strong></p>
-                <p>Modelos, escenas y renders personalizados para videos, proyectos y miniaturas de Minecraft. Cada creación está hecha con detalle, iluminación cuidada y estilo propio.</p>
-            </div>
-            <!-- Usa tu logo o render preferido como avatar principal -->
-            <img src="favicon.png" class="hero-avatar" alt="Jozart Avatar">
-        </div>
-        
-        <div class="hero-sub-box">
-            <h3>SOBRE MÍ</h3>
-            <p>Soy Jozart, un creador apasionado por el diseño visual en Minecraft. Me encanta experimentar con luces, cámaras y escenas para dar vida a cada idea.</p>
-        </div>
-
-        <div class="hero-sub-box">
-            <h3>CONTACTO</h3>
-            <p style="margin-top: 0; font-size: 0.9em; opacity: 0.85;">¿Quieres una miniatura o render personalizado? ¡Hablemos y creamos algo increíble juntos! Rápido, económico y con estilo.</p>
-            <div class="hero-links-list">
-                <a href="https://wa.me/573003781417" target="_blank" class="hero-link-item">📞 3003781417</a>
-                <a href="https://www.youtube.com/@Jozart_x" target="_blank" class="hero-link-item">▶️ JOZART_X</a>
-                <a href="https://www.instagram.com/jozart.art/" target="_blank" class="hero-link-item">📸 JOZART.ART</a>
-                <a href="https://discord.com" target="_blank" class="hero-link-item">💬 JOZARTAT</a>
-                <a href="https://mail.google.com/mail/?view=cm&to=josephjuega972@gmail.com" target="_blank" class="hero-link-item">✉️ JOSEPHJUGEA972@GMAIL.COM</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <header>
     <img src="favicon.png" class="logo" alt="Logo">
     <h1>WORK SHOWCASE</h1>
@@ -861,23 +709,8 @@ footer {
 </div>
 
 <script>
-/* ===== EFECTO DE CONTROL DE SCROLL EN PORTAFOLIO (NUEVO) ===== */
-const heroPortafolio = document.getElementById("heroPortafolio");
-window.addEventListener("scroll", () => {
-    let value = window.scrollY;
-    // Conforme baja el usuario disminuye la opacidad y se repliega hacia arriba de manera controlada
-    if (value < 400) {
-        heroPortafolio.style.opacity = 1 - value / 400;
-        heroPortafolio.style.transform = `scaleY(${1 - value / 1200}) translateY(-${value * 0.2}px)`;
-        heroPortafolio.style.display = "block";
-    } else {
-        heroPortafolio.style.display = "none";
-    }
-});
-
-/* ===== MANEJADOR DE CARGA DE IMÁGENES (NUEVO) ===== */
+/* ===== MANEJADOR DE CARGA DE IMÁGENES ===== */
 function handleImageLoad(img) {
-    // Al finalizar la descarga total, removemos el loader y animamos la imagen
     const loader = img.previousElementSibling;
     if (loader && loader.classList.contains('img-loader')) {
         loader.style.opacity = '0';
@@ -886,7 +719,6 @@ function handleImageLoad(img) {
     img.classList.add('loaded');
 }
 
-// Comprobación de seguridad por si alguna imagen ya cargó de caché antes del evento onload
 document.querySelectorAll(".gallery img, .process-container img").forEach(img => {
     if (img.complete) handleImageLoad(img);
 });
@@ -1106,4 +938,3 @@ loadMessages();
 </script>
 </body>
 </html>
-
